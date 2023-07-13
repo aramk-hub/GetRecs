@@ -1,102 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import Dropdown from './Dropdown';
-import Listbox from './Listbox';
-import Detail from './Detail';
-import { Credentials } from './Credentials';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import './App.css'
 
-const App = () => {
+function App() {
+    const CLIENT_ID = "2ba03b82f1d3454184efa1859c5b3c71";
+    const CLIENT_SECRET = "529cf05446f34c0cb5a94c38953b2ef9";
+    const REDIRECT_URI = "http://localhost:3000";
+    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+    const RESPONSE_TYPE= "token";
 
-  const spotify = Credentials();  
+    const [token, setToken] = useState("");
+    const [searchKey, setSearchKey] = useState("");
+    const [artists, setArtists] = useState([]);
 
-  console.log('RENDERING APP.JS');
+    useEffect(() => {
+        const hash = window.location.hash;
+        let token = window.localStorage.getItem("token");
 
-  const data = [
-    {value: 1, name: 'A'},
-    {value: 2, name: 'B'},
-    {value: 3, name: 'C'},
-  ]; 
+        if (!token && hash) {
+            token = hash.substring(1).split("&").find(elem =>elem.startsWith("access_token")).split("=")[1];
 
-  const [token, setToken] = useState('');  
-  const [genresList, setGenresList] = useState({selectedGenre: '', listOfGenresFromAPI: []});
-  const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
-  const [trackDetail, setTrackDetail] = useState(null);
+            window.location.hash = ""
+            window.localStorage.setItem("token", token);
+            
+        }
+        setToken(token);
+        console.log(token)
 
-  useEffect(() => {
+    }, []);
 
-    axios('https://accounts.spotify.com/api/token', {
-      headers: {
-        'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
-      },
-      data: 'grant_type=client_credentials',
-      method: 'POST'
-    })
-    .then(tokenResponse => {      
-      setToken(tokenResponse.data.access_token);
+    const logout = () => {
+        setToken("")
+        window.localStorage.removeItem("token");
+    }
 
-      axios('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
-        method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-      })
-      .then (genreResponse => {        
-        setGenresList({
-          selectedGenre: genresList.selectedGenre,
-          listOfGenresFromAPI: genreResponse.data.genres.items
+    const getArtists = async (e) => {
+        e.preventDefault()
+        const{data} = await axios.get("https://api.spotify.com/v1/search", {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }, 
+            params: {
+                q: searchKey, 
+                type: "artist",
+                limit: "5"
+            }
         })
-      });
-      
-    });
 
-  }, [genresList.selectedGenre, spotify.ClientId, spotify.ClientSecret]); 
+        console.log(data);
+        setArtists(data.artists.items.sort((a) => a.popularity));
+    }
 
-  const genreChanged = val => {
-    setGenresList({
-      selectedGenre: val, 
-      listOfGenresFromAPI: genresList.listOfGenresFromAPI
-    });
-
-    console.log(val);
-  }
-
-  const buttonClicked = e => {
-    e.preventDefault();
-
-  }
-
-  const listboxClicked = val => {
-
-    const currentTracks = [...tracks.listOfTracksFromAPI];
-
-    const trackInfo = currentTracks.filter(t => t.track.id === val);
-
-    setTrackDetail(trackInfo[0].track);
-
-
-
-  }
-
-  
-  
-
-  return (
-    <div className="container">
-      <form onSubmit={buttonClicked}>        
-          <Dropdown label="Genre :" options={genresList.listOfGenresFromAPI} selectedValue={genresList.selectedGenre} changed={genreChanged} />
-          <div className="col-sm-6 row form-group px-0">
-            <button type='submit' className="btn btn-success col-sm-12">
-              Search
-            </button>
-          </div>
-          {/* <div className="row">
-            <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
-            {trackDetail && <Detail {...trackDetail} /> }
-          </div>         */}
-      </form>
-    </div>
+    const renderArtists = () => {
+        // openArtist = (e) => {
+        //     e.preventDefault();
+        //     const{data} = await axios.get(artist.href, {
+        //     headers: {
+        //         Authorization : `Bearer ${token}`
+        //     }
+            
+        // })
+        // console.log("Tried to open artist link")
     
-    
-  );
+         
+        return artists.map(artist => (
+            <>
+                {/* <a href={artist.href} target="_blank" onClick={this.openArtist}>{artist.name}</a> */}
+                <div key={artist.id}>
+                    
+                    {artist.images.length ? <img width={"50%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+                    
+                </div>
+            </>
+            
+        ))
+    }
+
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>GetRecs</h1>
+                <h2>Spotify recommendations based on what you want to hear.</h2>
+                {!token ?
+                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+                : <button onClick={logout}>Logout</button>}
+
+                {token ? 
+                    <form onSubmit={getArtists}>
+                        <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+                        <button type={"submit"}>Search</button>
+                    </form>
+                    : <h2></h2>
+                }
+
+                {renderArtists()}
+            </header>
+        </div>
+    );
 }
 
 export default App;
