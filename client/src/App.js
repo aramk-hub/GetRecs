@@ -61,6 +61,7 @@ function App() {
             
         // })
         // console.log("Tried to open artist link")
+        
     
          
         return artists.map(artist => (

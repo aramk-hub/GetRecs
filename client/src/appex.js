@@ -18,7 +18,7 @@ const App = () => {
   ]; 
 
   const [token, setToken] = useState('');  
-  const [genresList, setGenresList] = useState([selectedGenre: '', listOfGenresFromAPI: []]);
+  const [genresList, setGenresList] = useState({selectedGenre: '', listOfGenresFromAPI: []});
   const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
   const [trackDetail, setTrackDetail] = useState(null);
 
@@ -33,19 +33,7 @@ const App = () => {
       method: 'POST'
     })
     .then(tokenResponse => {      
-      setToken(tokenResponse.data.access_token);
-
-      axios('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
-        method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-      })
-      .then (genreResponse => {        
-        setGenresList({
-          selectedGenre: genresList.selectedGenre,
-          listOfGenresFromAPI: genreResponse.data.genres.items
-        })
-      }); 
-      
+      setToken(tokenResponse.data.access_token);      
     });
 
   }, [genresList.selectedGenre, spotify.ClientId, spotify.ClientSecret]); 
