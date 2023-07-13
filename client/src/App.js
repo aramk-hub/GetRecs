@@ -4,7 +4,7 @@ import './App.css'
 
 function App() {
     const CLIENT_ID = "2ba03b82f1d3454184efa1859c5b3c71";
-    const CLIENT_SECRET = "529cf05446f34c0cb5a94c38953b2ef9";
+    
     const REDIRECT_URI = "http://localhost:3000";
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
     const RESPONSE_TYPE= "token";
@@ -61,7 +61,7 @@ function App() {
             
         // })
         // console.log("Tried to open artist link")
-        
+
     
          
         return artists.map(artist => (
