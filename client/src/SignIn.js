@@ -19,35 +19,35 @@ import {useEffect, useState} from 'react';
 
 
 const SignIn = () => {
-  const { toggleColorMode } = useColorMode();
-  const formBackground = useColorModeValue('gray.100', 'gray.700');
+//   const { toggleColorMode } = useColorMode();
+//   const formBackground = useColorModeValue('gray.100', 'gray.700');
 
-  const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
+//   const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
     
-  const REDIRECT_URI = "http://localhost:3000";
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE= "token";
-  const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+//   const REDIRECT_URI = "http://localhost:3000";
+//   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+//   const RESPONSE_TYPE= "token";
+//   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
 
-  const [token, setToken] = useState("");
+//   const [token, setToken] = useState("");
 
 
 
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+//   useEffect(() => {
+//     const hash = window.location.hash;
+//     let token = window.localStorage.getItem("token");
 
-    if (!token && hash) {
-        token = hash.substring(1).split("&").find(elem =>elem.startsWith("access_token")).split("=")[1];
+//     if (!token && hash) {
+//         token = hash.substring(1).split("&").find(elem =>elem.startsWith("access_token")).split("=")[1];
 
-        window.location.hash = ""
-        window.localStorage.setItem("token", token);
+//         window.location.hash = ""
+//         window.localStorage.setItem("token", token);
         
-    }
-    setToken(token);
-    console.log(token)
+//     }
+//     setToken(token);
+//     console.log(token)
 
-}, []);
+// }, []);
 
   const handleClick = () => {
     window.location.href = path;
@@ -65,7 +65,9 @@ const SignIn = () => {
         <Heading mb={6}>Log In</Heading>
         
         <Button colorScheme="brand" mb={8} onClick={handleClick}>
-          <Image src={logo} boxSize='25px'/> &nbsp;  Sign in with Spotify
+          <Flex>
+          <Image src={logo} boxSize='25px'/> Sign in with Spotify
+          </Flex>
         </Button>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="dark_mode" mb="0">
