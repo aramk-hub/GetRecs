@@ -30,7 +30,7 @@ const SignIn = () => {
 
   const [token, setToken] = useState("");
 
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -46,8 +46,9 @@ const SignIn = () => {
     setToken(token);
     console.log(token);
     
+    {token ? navigate('/about') : navigate('/')};
 
-}, []);
+  }, []);
 
   const handleClick = () => {
     window.location.href = path;
@@ -82,7 +83,6 @@ const SignIn = () => {
           />
         </FormControl>
       </Flex>
-      
     </Flex>
     
   );

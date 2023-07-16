@@ -14,7 +14,11 @@ import {useNavigate} from 'react-router-dom'
 export default function NavItem({ icon, title, description, active, navSize, href }) {
 
 
+    const navigate = useNavigate();
 
+    const handleLinkClick = () => {
+        navigate(href);
+    }
 
     return (
         <Flex
@@ -32,7 +36,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
                     w={navSize == "large" && "100%"}
                 >
-                    <MenuButton w="100%">
+                    <MenuButton w="100%" onClick={handleLinkClick}>
                         <Flex>
                             <Icon as={icon} fontSize="xl" color={active ? "#82AAAD" : "gray.500"} />
                             <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>

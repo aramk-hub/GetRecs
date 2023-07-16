@@ -52,10 +52,10 @@ export default function Sidebar() {
                     }}
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiSearch} title="Search" active />
+                <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/about"/>
                 <NavItem navSize={navSize} icon={FiUser} title="User Profile"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
-                <NavItem navSize={navSize} icon={FiLogOut} title="Logout"/>
+                <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
             </Flex>
 
             <Flex

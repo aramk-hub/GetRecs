@@ -9,6 +9,8 @@ import { Button, ButtonGroup, ChakraProvider, Stack, extendTheme } from '@chakra
 import SignIn from './pages/SignIn';
 import Sidebar from './components/Sidebar';
 import About from './pages/About';
+import Logout from './pages/Logout';
+import { FiLogOut } from 'react-icons/fi';
 
 const theme = extendTheme({
   colors: {
@@ -54,30 +56,24 @@ function App() {
 
 
   return (
+    <ChakraProvider theme={theme}>
+    <div className="App">
     <Router>
-      <ChakraProvider theme={theme}>
-        <div className='App'>
-        
 
-        
+      <div className="content">
+
         <Routes>
           <Route exact path="/" element={<SignIn/>}/>
-          <Route exact path="/about" element={<About/>}/>
-          {/* <Route path="/logout" element={<Logout/>}/> */}
-          
-          
+          <Route path="/about" element={<About/>}/>
+          <Route path="logout" element={<Logout/>}/>
         </Routes>
 
-        
-        
-          
-          
+      </div>
 
-      
-        </div>
-      </ChakraProvider>
+
     </Router>
-        
+    </div>
+    </ChakraProvider>
   );
 }
 
