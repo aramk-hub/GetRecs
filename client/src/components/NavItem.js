@@ -9,13 +9,11 @@ import {
     MenuList
 } from '@chakra-ui/react'
 import NavHoverBox from './NavHoverBox'
+import {useNavigate} from 'react-router-dom'
 
 export default function NavItem({ icon, title, description, active, navSize, href }) {
 
-    const logout = () => {
-        // setToken("")
-        window.localStorage.removeItem("token");
-    }
+
 
 
     return (
@@ -34,7 +32,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
                     w={navSize == "large" && "100%"}
                 >
-                    <MenuButton w="100%" >
+                    <MenuButton w="100%">
                         <Flex>
                             <Icon as={icon} fontSize="xl" color={active ? "#82AAAD" : "gray.500"} />
                             <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>

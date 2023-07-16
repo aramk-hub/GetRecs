@@ -10,12 +10,10 @@ import {
 import {
     FiMenu,
     FiHome,
-    FiCalendar,
     FiUser,
-    FiDollarSign,
-    FiBriefcase,
     FiSettings,
-    FiLogOut
+    FiLogOut,
+    FiSearch
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
@@ -54,11 +52,8 @@ export default function Sidebar() {
                     }}
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" active />
-                <NavItem navSize={navSize} icon={FiUser} title="Clients" />
-                <NavItem navSize={navSize} icon={IoPawOutline} title="Animals" />
-                <NavItem navSize={navSize} icon={FiDollarSign} title="Stocks" />
-                <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
+                <NavItem navSize={navSize} icon={FiSearch} title="Search" active />
+                <NavItem navSize={navSize} icon={FiUser} title="User Profile"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
                 <NavItem navSize={navSize} icon={FiLogOut} title="Logout"/>
             </Flex>
