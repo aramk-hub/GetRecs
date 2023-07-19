@@ -19,9 +19,11 @@ import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 
 export default function Sidebar() {
-    const [navSize, changeNavSize] = useState("large")
+    const [navSize, changeNavSize] = useState("small")
     return (
         <Flex
+            gridColumn="1"
+            gridTemplateColumns="1 fr 1fr"
             pos="sticky"
             left="5"
             h="95vh"
@@ -36,7 +38,7 @@ export default function Sidebar() {
                 p="5%"
                 flexDir="column"
                 w="100%"
-                alignItems={navSize == "small" ? "center" : "flex-start"}
+                alignItems={navSize === "small" ? "center" : "flex-start"}
                 as="nav"
             >
                 <IconButton
@@ -45,14 +47,14 @@ export default function Sidebar() {
                     _hover={{ background: 'none' }}
                     icon={<FiMenu />}
                     onClick={() => {
-                        if (navSize == "small")
+                        if (navSize === "small")
                             changeNavSize("large")
                         else
                             changeNavSize("small")
                     }}
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
-                <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/about"/>
+                <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
                 <NavItem navSize={navSize} icon={FiUser} title="User Profile"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
                 <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
@@ -62,13 +64,13 @@ export default function Sidebar() {
                 p="5%"
                 flexDir="column"
                 w="100%"
-                alignItems={navSize == "small" ? "center" : "flex-start"}
+                alignItems={navSize === "small" ? "center" : "flex-start"}
                 mb={4}
             >
-                <Divider display={navSize == "small" ? "none" : "flex"} />
+                <Divider display={navSize === "small" ? "none" : "flex"} />
                 <Flex mt={4} align="center">
                     <Avatar size="sm" src="avatar-1.jpg" />
-                    <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
+                    <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm">User Name</Heading>
                         <Text color="gray">Admin</Text>
                     </Flex>

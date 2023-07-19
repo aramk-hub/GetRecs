@@ -27,7 +27,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
             w="100%"
             alignItems={navSize == "small" ? "center" : "flex-start"}
         >
-            <Menu placement="right">
+            <Menu placement="left">
                 <Link
                     href={href}
                     backgroundColor={active && "#AEC8CA"}
@@ -43,7 +43,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                         </Flex>
                     </MenuButton>
                 </Link>
-                <MenuList
+                {/* <MenuList
                     py={0}
                     border="none"
                     w={200}
@@ -51,7 +51,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     ml={5}
                 >
                     <NavHoverBox title={title} icon={icon} description={description} />
-                </MenuList>
+                </MenuList> */}
             </Menu>
         </Flex>
     )

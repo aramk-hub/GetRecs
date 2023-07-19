@@ -46,7 +46,7 @@ const SignIn = () => {
     setToken(token);
     console.log(token);
     
-    {token ? navigate('/about') : navigate('/')};
+    {token ? navigate('/search') : navigate('/')};
 
   }, []);
 
@@ -67,9 +67,7 @@ const SignIn = () => {
         <Heading mb={6}>Log In</Heading>
         
         <Button colorScheme="brand" mb={8} onClick={handleClick}>
-          <Flex>
-          <Image src={logo} boxSize='25px'/> Sign in with Spotify
-          </Flex>
+          <Image src={logo} boxSize='25px'/> &nbsp; Sign in with Spotify
         </Button>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="dark_mode" mb="0">

@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route }
 import { Button, ButtonGroup, ChakraProvider, Stack, extendTheme } from '@chakra-ui/react'
 import SignIn from './pages/SignIn';
 import Sidebar from './components/Sidebar';
-import About from './pages/About';
+import Search from './pages/Search';
 import Logout from './pages/Logout';
 import { FiLogOut } from 'react-icons/fi';
 
@@ -60,15 +60,15 @@ function App() {
     <div className="App">
     <Router>
 
-      <div className="content">
+      {/* <div className="content"> */}
 
         <Routes>
           <Route exact path="/" element={<SignIn/>}/>
-          <Route path="/about" element={<About/>}/>
+          <Route path="/search" element={<Search/>}/>
           <Route path="logout" element={<Logout/>}/>
         </Routes>
 
-      </div>
+      {/* </div> */}
 
 
     </Router>
