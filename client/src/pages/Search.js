@@ -36,7 +36,7 @@ import { BrowserRouter as Router, Routes, Route }
 import Sidebar from "../components/Sidebar";
 import SignIn from './SignIn';
 import './search.css'
-
+import '../theme.js'
 
  
 const Search = () => {
@@ -76,19 +76,43 @@ const Search = () => {
                                     <option value='albums'>Albums</option>
                                 </Select>
                                 {select === 'artists' ? 
+                                    <Fragment>
+                                        <VStack
+                                            divider={<StackDivider borderColor='gray.200' />}
+                                            spacing={4}
+                                            align='stretch'
+                                        >
                                     <InputGroup w='300px'>
                                         <InputLeftElement pointerEvents='none'>
                                         <Icon as={FiUsers} color={"gray.500"} />
                                         </InputLeftElement>
                                         <Input placeholder='The Beatles, Pink Floyd' />
                                     </InputGroup>
+                                    <Button colorScheme='purple' size='md'>
+                                        Get Recs
+
+                                    </Button>
+                                    </VStack>
+                                    </Fragment>
                                     : (select === 'albums') ?
+                                    <Fragment>
+                                        <VStack
+                                            divider={<StackDivider borderColor='gray.200' />}
+                                            spacing={4}
+                                            align='stretch'
+                                        >
                                     <InputGroup>
                                         <InputLeftElement pointerEvents='none'>
                                         <Icon as={FiDisc} color={"gray.500"} />
                                         </InputLeftElement>
                                         <Input placeholder='Abbey Road, Bleach' />
                                     </InputGroup>
+                                    <Button colorScheme='purple' size='md'>
+                                        Get Recs
+
+                                    </Button>
+                                    </VStack>
+                                    </Fragment>
                                     :
                                     null
                                 }
