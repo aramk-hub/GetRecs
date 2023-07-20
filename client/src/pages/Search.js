@@ -14,6 +14,13 @@ import {
     Input,
     Image, 
     Button,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverHeader,
+    PopoverBody,
     FormControl,
     FormLabel,
     Switch,
@@ -118,14 +125,14 @@ const Search = () => {
         var genreSeeds = document.getElementById('genrelist').value.split(',');
         console.log(genreSeeds);
 
-        var meter = parseInt(document.getElementById('target_time_signature').value)
-        console.log(meter);
+        // var meter = parseInt(document.getElementById('target_time_signature').value)
+        // console.log(meter);
 
-        var BPM = parseFloat(document.getElementById('target_tempo').value)
-        console.log(BPM);
+        // var BPM = parseFloat(document.getElementById('target_tempo').value)
+        // console.log(BPM);
 
-        var key = parseFloat(document.getElementById('target_key').value)
-        console.log(key);
+        // var key = parseFloat(document.getElementById('target_key').value)
+        // console.log(key);
 
         var recs = [];
         const{data} = await axios({
@@ -135,9 +142,9 @@ const Search = () => {
                 seed_genres: genreSeeds.toString(),
                 seed_tracks: trackSeeds.toString(),
                 limit: parseInt(document.getElementById('limit').value),
-                target_time_signature: meter,
-                target_tempo: BPM,
-                target_key: key
+                // target_time_signature: meter,
+                // target_tempo: BPM,
+                // target_key: key
             },
             method: 'get',
             headers: {
@@ -180,9 +187,7 @@ const Search = () => {
                             In fact, you can fill in all three of them, <b>but</b> you can only input 5 items across those three
                             groups in total. There are also some advanced search options, such as time signature (3/4, 4/4, etc.)
                             or beats per minute (BPM) for when you really want to find something specific like Money's unique 7/4 
-                            time signature! As a heads up, for the time signature search, be sure to only use the numerator of it. 
-                            So, if you want 3/4, just input 3, and for BPM think of 118 as an example! Spotify's algorithm does not guarantee any order, but you can 
-                            choose how to sort the results, if you want. Have fun!
+                            time signature! Have fun!
                         </CardBody>                             
                             <Fragment>
                                 <VStack>
@@ -241,46 +246,83 @@ const Search = () => {
                                     <Stack direction="row" spacing='24px'>
                                     <Fragment>
                                     
-                                    <FormControl>
+                                    {/* <FormControl>
                                     
                                     <FormLabel>Meter</FormLabel>
-                                    <InputGroup>
-                                    <NumberInput id="target_time_signature" w="75px" placeholder='4' min={3} max={7}>
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                    </NumberInput>
-                                    </InputGroup>
+                                    <Popover trigger="hover" OpenDelay="100" closeDelay="100">
+                                        <PopoverTrigger>
+                                            <InputGroup>
+                                            <NumberInput id="target_time_signature" w="75px" min={3} max={7}>
+                                            <NumberInputField />
+                                            <NumberInputStepper>
+                                                <NumberIncrementStepper />
+                                                <NumberDecrementStepper />
+                                            </NumberInputStepper>
+                                            </NumberInput>
+                                            </InputGroup>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <PopoverArrow />
+                                            <PopoverCloseButton />
+                                            <PopoverBody>An estimated time signature. The time signature (meter) is a notational
+                                                 convention to specify how many beats are in each bar (or measure). The time 
+                                                 signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".</PopoverBody>
+                                        </PopoverContent>
+                                        </Popover>
                                     </FormControl>
                                     
                                     <FormControl>
                                     <FormLabel>BPM</FormLabel>
-                                    <InputGroup>
-                                    <NumberInput id="target_tempo" w="75px" placeholder='118'>
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                    </NumberInput>
-                                    </InputGroup>
+                                        <Popover trigger="hover" OpenDelay="100" closeDelay="100">
+                                        <PopoverTrigger>
+                                            <InputGroup>
+                                            <NumberInput id="target_tempo" w="75px">
+                                            <NumberInputField />
+                                            <NumberInputStepper>
+                                                <NumberIncrementStepper />
+                                                <NumberDecrementStepper />
+                                            </NumberInputStepper>
+                                            </NumberInput>
+                                            </InputGroup>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <PopoverArrow />
+                                            <PopoverCloseButton />
+                                            <PopoverBody>The overall estimated tempo of a track in beats per minute (BPM). 
+                                                In musical terminology, tempo is the speed or pace of a given piece and 
+                                                derives directly from the average beat duration.</PopoverBody>
+                                        </PopoverContent>
+                                        </Popover>
                                     
                                     </FormControl>
 
                                     <FormControl>
                                         <FormLabel>Key</FormLabel>
-                                        <InputGroup>
-                                        <NumberInput id="target_key" w="75px" min={0} max={11}>
-                                        <NumberInputField />
-                                        <NumberInputStepper>
-                                            <NumberIncrementStepper />
-                                            <NumberDecrementStepper />
-                                        </NumberInputStepper>
-                                        </NumberInput>
-                                        </InputGroup>
-                                    </FormControl>
+                                        <Popover trigger="hover" OpenDelay="100" closeDelay="100">
+                                        <PopoverTrigger>
+                                            <InputGroup>
+                                            <NumberInput id="target_key" w="75px" min={0} max={11}>
+                                            <NumberInputField />
+                                            <NumberInputStepper>
+                                                <NumberIncrementStepper />
+                                                <NumberDecrementStepper />
+                                            </NumberInputStepper>
+                                            </NumberInput>
+                                            </InputGroup>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <PopoverArrow />
+                                            <PopoverCloseButton />
+                                            <PopoverBody>The key the track is in. Integers map to pitches using standard <space/>
+                                            <Link color='purple.500' href='https://en.wikipedia.org/wiki/Pitch_class'>Pitch Class notation</Link>. 
+                                                E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, 
+                                                the value is -1.</PopoverBody>
+                                        </PopoverContent>
+                                        </Popover>
+                                        
+                                    </FormControl> */}
+
+                                    
                                     </Fragment>
                                     </Stack>
                                     
