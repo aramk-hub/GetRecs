@@ -5,6 +5,7 @@ import {
     Icon,
     Box,
     StackDivider,
+    Divider, 
     Select,
     Flex,
     extendTheme,
@@ -31,7 +32,8 @@ import {
     InputLeftElement,
     Card,
     CardHeader,
-    CardBody
+    CardBody,
+    Stack
   } from '@chakra-ui/react';
 import {
     FiHash,
@@ -170,11 +172,11 @@ const Search = () => {
                             choose how to sort the results, if you want. Have fun!
                         </CardBody>                             
                             <Fragment>
-                            <VStack>
+                                <VStack>
                                 <HStack
-                                    divider={<StackDivider borderColor='gray.200' />}
-                                    spacing={2}
-                                    align='stretch'
+                                    
+                                    spacing={4}
+                                    align='center'
                                 >
                                     <FormControl>
                                         <FormLabel>Artists</FormLabel>
@@ -223,16 +225,14 @@ const Search = () => {
                                         </InputGroup>
                                     </FormControl>
                                 </HStack>
-
-                                
-                                {advancedSearch ? 
-                                    //{idk}
-                                    <HStack>
+                                    <Stack direction="row" spacing='24px'>
                                     <Fragment>
+                                    
                                     <FormControl>
-                                    <FormLabel>Time Signature</FormLabel>
+                                    
+                                    <FormLabel>Meter</FormLabel>
                                     <InputGroup>
-                                    <NumberInput id="target_time_signature" w="75px" min={3} max={7}>
+                                    <NumberInput id="target_time_signature" w="75px" placeholder='4' min={3} max={7}>
                                     <NumberInputField />
                                     <NumberInputStepper>
                                         <NumberIncrementStepper />
@@ -241,11 +241,11 @@ const Search = () => {
                                     </NumberInput>
                                     </InputGroup>
                                     </FormControl>
-                        
+                                    
                                     <FormControl>
                                     <FormLabel>BPM</FormLabel>
                                     <InputGroup>
-                                    <NumberInput id="target_tempo" w="75px" >
+                                    <NumberInput id="target_tempo" w="75px" placeholder='118'>
                                     <NumberInputField />
                                     <NumberInputStepper>
                                         <NumberIncrementStepper />
@@ -253,27 +253,25 @@ const Search = () => {
                                     </NumberInputStepper>
                                     </NumberInput>
                                     </InputGroup>
+                                    
                                     </FormControl>
                                     </Fragment>
-                                    </HStack> 
-                                    : null}
-
-                                
-
-                                
-                            </VStack>
+                                    </Stack>
+                                    
+                                    </VStack>
+                            
                             
                             <HStack>
                             <Flex h="75px" alignContent="center" justifyContent="center"/>
-                                <FormControl as={SimpleGrid} columns={{ base: 2, lg: 5 }}>
-                                <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
+                                <FormControl as={SimpleGrid} columns={{ base: 2, lg: 1 }}>
+                                {/* <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
                                 <Switch 
                                     id="advancedSearch" 
                                     label="Advanced search" 
                                     colorScheme='purple' 
                                     size='lg' 
                                     onChange={handleChange}
-                                />
+                                /> */}
 
                                 <Button colorScheme='purple' size='md' onClick={handleClick}>
                                         Get Recs
