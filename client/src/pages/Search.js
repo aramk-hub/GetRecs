@@ -118,6 +118,15 @@ const Search = () => {
         var genreSeeds = document.getElementById('genrelist').value.split(',');
         console.log(genreSeeds);
 
+        var meter = parseInt(document.getElementById('target_time_signature').value)
+        console.log(meter);
+
+        var BPM = parseFloat(document.getElementById('target_tempo').value)
+        console.log(BPM);
+
+        var key = parseFloat(document.getElementById('target_key').value)
+        console.log(key);
+
         var recs = [];
         const{data} = await axios({
             url: 'https://api.spotify.com/v1/recommendations?',
@@ -125,13 +134,17 @@ const Search = () => {
                 seed_artists: artistSeeds.toString(),
                 seed_genres: genreSeeds.toString(),
                 seed_tracks: trackSeeds.toString(),
-                limit: parseInt(document.getElementById('limit').value)
+                limit: parseInt(document.getElementById('limit').value),
+                target_time_signature: meter,
+                target_tempo: BPM,
+                target_key: key
             },
             method: 'get',
             headers: {
                 Authorization : `Bearer ${token}`
             }
         })
+
         recs.push(data.tracks);
         console.log(data);
         
@@ -254,6 +267,19 @@ const Search = () => {
                                     </NumberInput>
                                     </InputGroup>
                                     
+                                    </FormControl>
+
+                                    <FormControl>
+                                        <FormLabel>Key</FormLabel>
+                                        <InputGroup>
+                                        <NumberInput id="target_key" w="75px" min={0} max={11}>
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper />
+                                            <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                        </NumberInput>
+                                        </InputGroup>
                                     </FormControl>
                                     </Fragment>
                                     </Stack>
