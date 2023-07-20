@@ -52,15 +52,21 @@ import axios from 'axios';
  
 const Search = () => {
 
-    const [select,setSelect]= useState();
     const formBackground = useColorModeValue('gray.100', 'gray.700');
     const token = window.localStorage.getItem("token");
+    const [advancedSearch, setAdvancedSearch] = useState("");
     
 
-    const artistOrAlbum = (e) => {
-        
-        setSelect(e.target.value);
-        
+    const handleChange = (e) => {
+        var advancedSearch = document.getElementById("advancedSearch").checked;
+        console.log(advancedSearch);
+
+
+            
+    }
+
+    const idk = () => {
+        console.log("INSIDE");
     }
 
     async function handleClick() {
@@ -159,73 +165,116 @@ const Search = () => {
                             In fact, you can fill in all three of them, <b>but</b> you can only input 5 items across those three
                             groups in total. There are also some advanced search options, such as time signature (3/4, 4/4, etc.)
                             or beats per minute (BPM) for when you really want to find something specific like Money's unique 7/4 
-                            time signature! Spotify's algorithm does not guarantee any order, but you can choose how to sort the
-                            results, if you want. Have fun!
+                            time signature! As a heads up, for the time signature search, be sure to only use the numerator of it. 
+                            So, if you want 3/4, just input 3, and for BPM think of 118 as an example! Spotify's algorithm does not guarantee any order, but you can 
+                            choose how to sort the results, if you want. Have fun!
                         </CardBody>                             
                             <Fragment>
-                            <HStack
-                                divider={<StackDivider borderColor='gray.200' />}
-                                spacing={2}
-                                align='stretch'
-                            >
-                                <FormControl>
-                                    <FormLabel>Artists</FormLabel>
-                                    <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <Icon as={FiUsers} color={"gray.500"} />
-                                    </InputLeftElement>
-                                    <Input placeholder='Tame Impala, Nas' id="artistlist"/>
-                                    </InputGroup>
-                                </FormControl>
+                            <VStack>
+                                <HStack
+                                    divider={<StackDivider borderColor='gray.200' />}
+                                    spacing={2}
+                                    align='stretch'
+                                >
+                                    <FormControl>
+                                        <FormLabel>Artists</FormLabel>
+                                        <InputGroup>
+                                        <InputLeftElement pointerEvents='none'>
+                                            <Icon as={FiUsers} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input placeholder='Tame Impala, Nas' id="artistlist"/>
+                                        </InputGroup>
+                                    </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Genres</FormLabel>
-                                    <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <Icon as={FiFolder} color={"gray.500"} />
-                                    </InputLeftElement>
-                                    <Input placeholder='hip-hop, alternative' id="genrelist"/>
-                                    </InputGroup>
-                                </FormControl>
+                                    <FormControl>
+                                        <FormLabel>Genres</FormLabel>
+                                        <InputGroup>
+                                        <InputLeftElement pointerEvents='none'>
+                                            <Icon as={FiFolder} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input placeholder='rap, alternative' id="genrelist"/>
+                                        </InputGroup>
+                                    </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Tracks</FormLabel>
-                                    <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <Icon as={FiMusic} color={"gray.500"} />
-                                    </InputLeftElement>
-                                    <Input placeholder='A&W, As It Was' id="trackslist"/>
-                                    </InputGroup>
-                                </FormControl>
+                                    <FormControl>
+                                        <FormLabel>Tracks</FormLabel>
+                                        <InputGroup>
+                                        <InputLeftElement pointerEvents='none'>
+                                            <Icon as={FiMusic} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input placeholder='A&W, As It Was' id="trackslist"/>
+                                        </InputGroup>
+                                    </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Limit</FormLabel>
+                                    <FormControl>
+                                        <FormLabel>Limit</FormLabel>
+                                        <InputGroup>
+                                        <NumberInput id="limit" w="75px" defaultValue={20} min={1} max={100}>
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper />
+                                            <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                        </NumberInput>
+                                        {/* <InputLeftElement pointerEvents='none'>
+                                            <Icon as={FiHash} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input placeholder='20 (1-100)' id="limit"/> */}
+                                        </InputGroup>
+                                    </FormControl>
+                                </HStack>
+
+                                
+                                {advancedSearch ? 
+                                    //{idk}
+                                    <HStack>
+                                    <Fragment>
+                                    <FormControl>
+                                    <FormLabel>Time Signature</FormLabel>
                                     <InputGroup>
-                                    <NumberInput id="limit" w="75px" defaultValue={20} min={1} max={100}>
+                                    <NumberInput id="target_time_signature" w="75px" min={3} max={7}>
                                     <NumberInputField />
                                     <NumberInputStepper>
                                         <NumberIncrementStepper />
                                         <NumberDecrementStepper />
                                     </NumberInputStepper>
                                     </NumberInput>
-                                    {/* <InputLeftElement pointerEvents='none'>
-                                        <Icon as={FiHash} color={"gray.500"} />
-                                    </InputLeftElement>
-                                    <Input placeholder='20 (1-100)' id="limit"/> */}
                                     </InputGroup>
-                                </FormControl>
+                                    </FormControl>
+                        
+                                    <FormControl>
+                                    <FormLabel>BPM</FormLabel>
+                                    <InputGroup>
+                                    <NumberInput id="target_tempo" w="75px" >
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                        <NumberIncrementStepper />
+                                        <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                    </NumberInput>
+                                    </InputGroup>
+                                    </FormControl>
+                                    </Fragment>
+                                    </HStack> 
+                                    : null}
 
+                                
 
+                                
+                            </VStack>
                             
-                            </HStack>
                             <HStack>
                             <Flex h="75px" alignContent="center" justifyContent="center"/>
                                 <FormControl as={SimpleGrid} columns={{ base: 2, lg: 5 }}>
                                 <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
-                                <Switch id="advancedSearch" label="Advanced search" colorScheme='purple' size='lg' />
-                                
-                            
-                                
+                                <Switch 
+                                    id="advancedSearch" 
+                                    label="Advanced search" 
+                                    colorScheme='purple' 
+                                    size='lg' 
+                                    onChange={handleChange}
+                                />
+
                                 <Button colorScheme='purple' size='md' onClick={handleClick}>
                                         Get Recs
                                 </Button>
