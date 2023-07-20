@@ -20,8 +20,18 @@ import {
     useColorMode,
     useColorModeValue,
     VStack,
+    SimpleGrid,
+    NumberInput,
+    NumberInputField,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+    NumberInputStepper,
+    HStack,
     InputGroup,
-    InputLeftElement
+    InputLeftElement,
+    Card,
+    CardHeader,
+    CardBody
   } from '@chakra-ui/react';
 import {
     FiHash,
@@ -73,6 +83,7 @@ const Search = () => {
                 }
             })
             artistSeeds.push(data.artists.items[0].id);
+            console.log(artistSeeds);
         }
 
         // Get TrackID
@@ -93,9 +104,11 @@ const Search = () => {
                 }
             })
             trackSeeds.push(data.tracks.items[0].id);
+            console.log(trackSeeds);
         }
 
         var genreSeeds = document.getElementById('genrelist').value.split(',');
+        console.log(genreSeeds);
 
         var recs = [];
         const{data} = await axios({
@@ -120,81 +133,111 @@ const Search = () => {
         <div>
             <div className="search">
                 <Sidebar />
-                <Flex h="100vh" alignItems={"center"} justifyContent={"center"} gridColumn="2">
-                    <Flex
-                        alignItems={"center"}
-                        justifyContent={"center"}
+                
+                <Flex h="100vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+                    <Card >
                         
-                        w='500px'
-                        flexDirection="column"
-                        bg={formBackground}
-                        p={12}
-                        borderRadius={8}
-                        boxShadow="lg"
-                    >
-                        <VStack
-                            divider={<StackDivider borderColor='gray.200' />}
-                            spacing={4}
-                            align='stretch'
-                        >
+                        <Flex
+                            gridColumn="2"
+                            alignItems={"center"}
+                            justifyContent={"center"}
+                            
+                            w='1000px'
+                            flexDirection="column"
+                            bg={formBackground}
+                            p={12}
+                            borderRadius={8}
+                            boxShadow="lg"
+                        >       
+                        <CardHeader>
+                            <Heading size='md'>Welcome! Here's how it works...</Heading>
+                        </CardHeader>
+                        <CardBody>
+                            The site utilizes Spotify's very own recommendation algorithm, except it is fine tuned to exactly
+                            what you want to get recommendations based on. The algorithm <b>requires</b> at least one of the 
+                            tracks, artists, or genres section to be filled in, though you could fill in more than just one. 
+                            In fact, you can fill in all three of them, <b>but</b> you can only input 5 items across those three
+                            groups in total. There are also some advanced search options, such as time signature (3/4, 4/4, etc.)
+                            or beats per minute (BPM) for when you really want to find something specific like Money's unique 7/4 
+                            time signature! Spotify's algorithm does not guarantee any order, but you can choose how to sort the
+                            results, if you want. Have fun!
+                        </CardBody>                             
                             <Fragment>
+                            <HStack
+                                divider={<StackDivider borderColor='gray.200' />}
+                                spacing={2}
+                                align='stretch'
+                            >
+                                <FormControl>
+                                    <FormLabel>Artists</FormLabel>
+                                    <InputGroup>
+                                    <InputLeftElement pointerEvents='none'>
+                                        <Icon as={FiUsers} color={"gray.500"} />
+                                    </InputLeftElement>
+                                    <Input placeholder='Tame Impala, Nas' id="artistlist"/>
+                                    </InputGroup>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Genres</FormLabel>
+                                    <InputGroup>
+                                    <InputLeftElement pointerEvents='none'>
+                                        <Icon as={FiFolder} color={"gray.500"} />
+                                    </InputLeftElement>
+                                    <Input placeholder='hip-hop, alternative' id="genrelist"/>
+                                    </InputGroup>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Tracks</FormLabel>
+                                    <InputGroup>
+                                    <InputLeftElement pointerEvents='none'>
+                                        <Icon as={FiMusic} color={"gray.500"} />
+                                    </InputLeftElement>
+                                    <Input placeholder='A&W, As It Was' id="trackslist"/>
+                                    </InputGroup>
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Limit</FormLabel>
+                                    <InputGroup>
+                                    <NumberInput id="limit" w="75px" defaultValue={20} min={1} max={100}>
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                        <NumberIncrementStepper />
+                                        <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                    </NumberInput>
+                                    {/* <InputLeftElement pointerEvents='none'>
+                                        <Icon as={FiHash} color={"gray.500"} />
+                                    </InputLeftElement>
+                                    <Input placeholder='20 (1-100)' id="limit"/> */}
+                                    </InputGroup>
+                                </FormControl>
+
+
+                            
+                            </HStack>
+                            <HStack>
+                            <Flex h="75px" alignContent="center" justifyContent="center"/>
+                                <FormControl as={SimpleGrid} columns={{ base: 2, lg: 5 }}>
+                                <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
+                                <Switch id="advancedSearch" label="Advanced search" colorScheme='purple' size='lg' />
                                 
-                                    <Fragment>
-                                    <VStack
-                                            divider={<StackDivider borderColor='gray.200' />}
-                                            spacing={4}
-                                            align='stretch'
-                                    >
-                                        <FormControl isRequired>
-                                            <FormLabel>Artists</FormLabel>
-                                            <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <Icon as={FiUsers} color={"gray.500"} />
-                                            </InputLeftElement>
-                                            <Input placeholder='The Beatles, Pink Floyd' id="artistlist"/>
-                                            </InputGroup>
-                                        </FormControl>
-
-                                        <FormControl isRequired>
-                                            <FormLabel>Genres</FormLabel>
-                                            <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <Icon as={FiFolder} color={"gray.500"} />
-                                            </InputLeftElement>
-                                            <Input placeholder='classical, country' id="genrelist"/>
-                                            </InputGroup>
-                                        </FormControl>
-
-                                        <FormControl isRequired>
-                                            <FormLabel>Tracks</FormLabel>
-                                            <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <Icon as={FiMusic} color={"gray.500"} />
-                                            </InputLeftElement>
-                                            <Input placeholder='A&W, As It Was' id="trackslist"/>
-                                            </InputGroup>
-                                        </FormControl>
-
-                                        <FormControl>
-                                            <FormLabel>Limit</FormLabel>
-                                            <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <Icon as={FiHash} color={"gray.500"} />
-                                            </InputLeftElement>
-                                            <Input placeholder='Default is 20' id="limit"/>
-                                            </InputGroup>
-                                        </FormControl>
-                                    
-                                    <Button colorScheme='purple' size='md' onClick={handleClick}>
+                            
+                                
+                                <Button colorScheme='purple' size='md' onClick={handleClick}>
                                         Get Recs
-                                    </Button>
-
-                                    </VStack>
-                                    </Fragment>
+                                </Button>
+                                </FormControl>
+                            
+                                
+                            </HStack>
                             </Fragment>
-                        </VStack>
-                    </Flex>
+                        </Flex>
+                    </Card>
                 </Flex>
+                
             </div>
         </div>
     );
