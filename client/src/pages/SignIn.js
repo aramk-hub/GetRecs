@@ -28,7 +28,7 @@ const SignIn = () => {
    
 
   const [token, setToken] = useState("");
-  const REDIRECT_URI = `https://gentle-torte-8f631b.netlify.app/callback#access_token=${token}&token_type=Bearer&expires_in=3600`;
+  const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/callback";
   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=token`;
   const navigate = useNavigate();
 
