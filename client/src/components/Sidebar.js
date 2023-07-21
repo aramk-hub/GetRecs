@@ -76,7 +76,7 @@ export default function Sidebar() {
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
                 <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
-                <NavItem navSize={navSize} icon={FiLogOut} title="Logout" />
+                <NavItem navSize={navSize} icon={FiLogOut} title="Logout" /> 
             </Flex>
 
             <Flex
