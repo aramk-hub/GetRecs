@@ -58,6 +58,7 @@ const Search = () => {
     const token = window.localStorage.getItem("token");
     const [advancedSearch, setAdvancedSearch] = useState("");
     const [recs, setRecs] = useState([]);
+    const [user, setUser] = useState(null);
     
 
     const handleChange = (e) => {
@@ -74,11 +75,14 @@ const Search = () => {
     //     }
     // }
 
+    
+
     async function handleClick() {
 
         var trackList = document.getElementById('trackslist').value.split(',');
         var artistList = document.getElementById('artistlist').value.split(',');
         var genreSeeds = document.getElementById('genrelist').value.split(',');
+        console.log(genreSeeds.toString())
 
         // if (!validateInputs(trackList, artistList, genreSeeds)) {
         //     <alert>Check your inputs</alert>
@@ -103,6 +107,7 @@ const Search = () => {
                 }
             })
             artistSeeds.push(data.artists.items[0].id);
+            console.log("artistseeds: " + artistSeeds)
         }
 
         // Get TrackID
@@ -123,6 +128,7 @@ const Search = () => {
                 }
             })
             trackSeeds.push(data.tracks.items[0].id);
+            console.log("trackseeds: " + trackSeeds)
         }
 
         
@@ -136,6 +142,9 @@ const Search = () => {
         // var key = parseFloat(document.getElementById('target_key').value)
         // console.log(key);
 
+        var limit = parseInt(document.getElementById('limit').value);
+        console.log("limit" + limit)
+
         var recs = [];
         const{data} = await axios({
             url: 'https://api.spotify.com/v1/recommendations?',
@@ -143,7 +152,7 @@ const Search = () => {
                 seed_artists: artistSeeds.toString(),
                 seed_genres: genreSeeds.toString(),
                 seed_tracks: trackSeeds.toString(),
-                limit: parseInt(document.getElementById('limit').value),
+                limit: limit,
                 // target_time_signature: meter,
                 // target_tempo: BPM,
                 // target_key: key
@@ -153,9 +162,12 @@ const Search = () => {
                 Authorization : `Bearer ${token}`
             }
         })
+        console.log(artistSeeds.toString())
         recs.push(data.tracks);
         setRecs(data.tracks);
         console.log(recs);
+
+        
     }
 
     const renderRecs = () => {
@@ -391,11 +403,6 @@ const Search = () => {
                 </Flex>
 
                 {renderRecs()}
-                
-
-
-                
-                
             </div>
         </div>
     );

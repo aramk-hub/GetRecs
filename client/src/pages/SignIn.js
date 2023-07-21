@@ -25,8 +25,9 @@ const SignIn = () => {
     
    const REDIRECT_URI = "http://localhost:3000";
    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-   const RESPONSE_TYPE= "token";
-   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+   const RESPONSE_TYPE = "token";
+   const SCOPES = "user-read-private user-read-email"
+   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
 
   const [token, setToken] = useState("");
 

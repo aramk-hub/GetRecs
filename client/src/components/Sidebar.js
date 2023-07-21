@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import {
     Flex,
     Text,
     IconButton,
     Divider,
     Avatar,
-    Heading
+    Heading,
+    FormHelperText
 } from '@chakra-ui/react'
 import {
     FiMenu,
@@ -13,13 +14,33 @@ import {
     FiUser,
     FiSettings,
     FiLogOut,
-    FiSearch
+    FiSearch,
+    FiHelpCircle
 } from 'react-icons/fi'
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
+import axios from 'axios'
 
 export default function Sidebar() {
-    const [navSize, changeNavSize] = useState("small")
+    const [navSize, changeNavSize] = useState("small");
+    const [user, setUser] = useState([]);
+    const token = window.localStorage.getItem("token");
+
+    useEffect(() => {
+        const fetchUser = async () => {
+        const{data} = await axios({
+            url: 'https://api.spotify.com/v1/me',
+            
+            method: 'get',
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        })
+        setUser(data);
+    }
+    fetchUser();       
+    }, []);
+    
     return (
         <Flex
             gridColumn="1"
@@ -67,12 +88,17 @@ export default function Sidebar() {
             >
                 <Divider display={navSize === "small" ? "none" : "flex"} />
                 <Flex mt={4} align="center">
-                    <Avatar size="sm" src="avatar-1.jpg" />
-                    <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">User Name</Heading>
-                        <Text color="gray">Admin</Text>
-                    </Flex>
+                
+                <Fragment>
+                    {console.log(user)}
+                <Avatar size="sm" src="avatar-1.jpg" />
+                <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
+                    <Heading as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
+                </Fragment>
+                
+                </Flex>
+                
             </Flex>
         </Flex>
     )
