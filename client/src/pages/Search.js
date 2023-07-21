@@ -1,18 +1,13 @@
 import React from "react";
 import {
-    Alert, 
-    AlertIcon,
     Icon,
     Box,
     StackDivider,
-    Divider, 
-    Select,
     Flex,
-    extendTheme,
-    Link,
     Heading,
     Input,
     Image, 
+    Link,
     Button,
     Popover,
     PopoverTrigger,
@@ -23,9 +18,6 @@ import {
     PopoverBody,
     FormControl,
     FormLabel,
-    Switch,
-    Spacer,
-    useColorMode,
     useColorModeValue,
     VStack,
     SimpleGrid,
@@ -40,7 +32,8 @@ import {
     Card,
     CardHeader,
     CardBody,
-    Stack
+    Stack,
+    Text
   } from '@chakra-ui/react';
 import {
     FiHash,
@@ -64,6 +57,7 @@ const Search = () => {
     const formBackground = useColorModeValue('gray.100', 'gray.700');
     const token = window.localStorage.getItem("token");
     const [advancedSearch, setAdvancedSearch] = useState("");
+    const [recs, setRecs] = useState([]);
     
 
     const handleChange = (e) => {
@@ -74,14 +68,25 @@ const Search = () => {
             
     }
 
-    const idk = () => {
-        console.log("INSIDE");
-    }
+    // const validateInputs = (trackList, artistList, genreSeeds) => {
+    //     if (trackList.length + artistList.length + genreSeeds.length > 5) {
+    //         return false;
+    //     }
+    // }
 
     async function handleClick() {
+
+        var trackList = document.getElementById('trackslist').value.split(',');
+        var artistList = document.getElementById('artistlist').value.split(',');
+        var genreSeeds = document.getElementById('genrelist').value.split(',');
+
+        // if (!validateInputs(trackList, artistList, genreSeeds)) {
+        //     <alert>Check your inputs</alert>
+        //     return
+        // }
             
         // Get ArtistIDs
-        var artistList = document.getElementById('artistlist').value.split(',');
+        
         var artistSeeds = [];
         for (const artist of artistList) {
             const{data} = await axios({
@@ -98,11 +103,10 @@ const Search = () => {
                 }
             })
             artistSeeds.push(data.artists.items[0].id);
-            console.log(artistSeeds);
         }
 
         // Get TrackID
-        var trackList = document.getElementById('trackslist').value.split(',');
+        
         var trackSeeds = [];
         for (const track of trackList) {
             const{data} = await axios({
@@ -119,11 +123,9 @@ const Search = () => {
                 }
             })
             trackSeeds.push(data.tracks.items[0].id);
-            console.log(trackSeeds);
         }
 
-        var genreSeeds = document.getElementById('genrelist').value.split(',');
-        console.log(genreSeeds);
+        
 
         // var meter = parseInt(document.getElementById('target_time_signature').value)
         // console.log(meter);
@@ -151,16 +153,50 @@ const Search = () => {
                 Authorization : `Bearer ${token}`
             }
         })
-
         recs.push(data.tracks);
-        console.log(data);
-        
+        setRecs(data.tracks);
+        console.log(recs);
+    }
+
+    const renderRecs = () => {
+        console.log("inside");
+
+        return (<Flex h="75vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+            <Card  w="500px" maxHeight='500px'>
+            <CardHeader>
+                <Heading size='md'>Recommendations</Heading>
+            </CardHeader>
+
+            <CardBody overflowY='auto'>
+                <Stack divider={<StackDivider />} spacing='4'>
+                    {recs.map((track, i) => {
+                        return (
+                            <Box>
+                                {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
+                                <Image float="right" h='75px' w='75px' align='right' src={track.album.images[0].url}/>
+                                {/* </Link> */}
+                                <Heading size='xs' textTransform='uppercase'>
+                                <Link color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
+                                </Heading>
+                                <Text pt='2' fontSize='sm'>
+                                    by <Link color="purple.500" target='_blank' href={track.artists[0].external_urls.spotify}>
+                                        {track.artists[0].name}</Link>                        
+                                </Text>
+                                
+                            </Box>
+                        )
+                    })}
+                </Stack>
+            </CardBody>
+            </Card>
+        </Flex>);
     }
 
     return (
         <div>
             <div className="search">
                 <Sidebar />
+                
                 
                 <Flex h="100vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
                     <Card >
@@ -351,7 +387,14 @@ const Search = () => {
                             </Fragment>
                         </Flex>
                     </Card>
+                    
                 </Flex>
+
+                {renderRecs()}
+                
+
+
+                
                 
             </div>
         </div>

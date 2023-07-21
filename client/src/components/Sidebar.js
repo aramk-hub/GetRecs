@@ -24,7 +24,7 @@ export default function Sidebar() {
         <Flex
             gridColumn="1"
             gridTemplateColumns="1 fr 1fr"
-            pos="sticky"
+            pos="fixed"
             left="5"
             h="95vh"
             marginTop="2.5vh"
