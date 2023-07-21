@@ -28,11 +28,11 @@ const Logout = () => {
         navigate('/')
     }
 
-    logout(this);
+    //logout(this);
 
     return (
         
-        <Navigate to='/'/>
+        logout()
         
     );
 }
