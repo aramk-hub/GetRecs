@@ -31,9 +31,9 @@ const Logout = () => {
     logout(this);
 
     return (
-        <div>
-            {<Navigate to='/'/>};
-        </div>
+        
+        <Navigate to='/'/>
+        
     );
 }
 
