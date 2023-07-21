@@ -16,13 +16,8 @@ export default function NavItem({ icon, title, description, active, navSize, hre
 
     const navigate = useNavigate();
 
-    const handleLinkClick = (title) => {
-        if (title === 'Logout') {
-            window.localStorage.removeItem("token");
-            navigate('/');
-        } else {
+    const handleLinkClick = () => {
         navigate(href);
-        }
     }
 
     return (
@@ -34,7 +29,6 @@ export default function NavItem({ icon, title, description, active, navSize, hre
         >
             <Menu placement="left">
                 <Link
-                    onClick={handleLinkClick(title)}
                     href={href}
                     backgroundColor={active && "purple.500"}
                     p={3}
@@ -42,7 +36,7 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     _hover={{ textDecor: 'none', backgroundColor: "purple.300" }}
                     w={navSize == "large" && "100%"}
                 >
-                    <MenuButton w="100%">
+                    <MenuButton w="100%" onClick={handleLinkClick}>
                         <Flex>
                             <Icon as={icon} fontSize="xl" color={active ? "purple.100" : "gray.500"} />
                             <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
