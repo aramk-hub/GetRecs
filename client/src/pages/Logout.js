@@ -28,12 +28,12 @@ const Logout = () => {
         navigate('/')
     }
 
-    //logout(this);
+    logout(this);
 
     return (
-        
-        logout()
-        
+        <div>
+            {<Navigate to='/'/>};
+        </div>
     );
 }
 
