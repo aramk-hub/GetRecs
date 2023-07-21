@@ -21,7 +21,7 @@ import { IoPawOutline } from 'react-icons/io5'
 import NavItem from './NavItem'
 import axios from 'axios'
 
-export default function Sidebar() {
+export default function Sidebar() {               
     const [navSize, changeNavSize] = useState("small");
     const [user, setUser] = useState([]);
     const token = window.localStorage.getItem("token");
@@ -76,7 +76,7 @@ export default function Sidebar() {
                 />
                 <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
                 <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
-                <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
+                <NavItem navSize={navSize} icon={FiLogOut} title="Logout" />
             </Flex>
 
             <Flex
