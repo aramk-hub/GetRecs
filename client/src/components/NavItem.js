@@ -20,9 +20,9 @@ export default function NavItem({ icon, title, description, active, navSize, hre
         if (title === 'Logout') {
             window.localStorage.removeItem("token");
             navigate('/');
-            return null;
-        }
+        } else {
         navigate(href);
+        }
     }
 
     return (
