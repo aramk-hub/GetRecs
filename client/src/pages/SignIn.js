@@ -22,15 +22,14 @@ const SignIn = () => {
    const { toggleColorMode } = useColorMode();
    const formBackground = useColorModeValue('gray.100', 'gray.700');
    const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
-    
-   const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/search";
    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
    const RESPONSE_TYPE = "token";
    const SCOPES = "user-read-private user-read-email"
-   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+   
 
   const [token, setToken] = useState("");
-
+  const REDIRECT_URI = `https://gentle-torte-8f631b.netlify.app/callback#access_token=${token}&token_type=Bearer&expires_in=3600`;
+  const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
   const navigate = useNavigate();
 
   useEffect(() => {
