@@ -24,11 +24,11 @@ const SignIn = () => {
    const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
    const RESPONSE_TYPE = "token";
-   const SCOPES = "user-read-private user-read-email"
+   const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private"
    
 
   const [token, setToken] = useState("");
-  const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/";
+  const REDIRECT_URI = "http://localhost:3000";
 
   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=token`;
   const navigate = useNavigate();
