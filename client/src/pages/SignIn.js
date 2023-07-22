@@ -16,9 +16,11 @@ import {
 import logo from '../spotify-icons-logos/icons/RGB/PNG/Spotify_Icon_RGB_Green.png';
 import { useNavigate, Navigate } from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import background from "./record-image.jpeg";
 
 
 const SignIn = () => {
+
    const { toggleColorMode } = useColorMode();
    const formBackground = useColorModeValue('gray.100', 'gray.700');
    const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
@@ -28,10 +30,13 @@ const SignIn = () => {
    
 
   const [token, setToken] = useState("");
-  const REDIRECT_URI = "http://localhost:3000";
+  const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/";
 
   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=token`;
   const navigate = useNavigate();
+  document.addEventListener('DOMContentLoaded', function GetFavColor() {
+    document.body.style.backgroundColor = {background};
+  });
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -56,6 +61,8 @@ const SignIn = () => {
   }
 
   return (
+
+    <div className='sign'>
 
     <Flex h="100vh" alignItems="center" justifyContent="center">
       <Flex
@@ -83,7 +90,7 @@ const SignIn = () => {
         </FormControl>
       </Flex>
     </Flex>
-    
+    </div>
   );
 };
 

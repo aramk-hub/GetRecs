@@ -2,5 +2,5 @@
     display: grid;
     grid-template-columns: 140px 1fr;
     background-image: url("./record-image.jpeg");
-    background-size: 1920px
+    background-size: 100%
   }
