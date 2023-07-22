@@ -43,6 +43,7 @@ export default function Sidebar() {
     
     return (
         <Flex
+            float="left"
             gridColumn="1"
             gridTemplateColumns="1 fr 1fr"
             pos="fixed"
@@ -91,7 +92,7 @@ export default function Sidebar() {
                 
                 <Fragment>
                     {console.log(user)}
-                <Avatar size="sm" src={user.images[0].url ? user.images[0].url : "avatar-1.jpg"} />
+                <Avatar size="sm" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
                 <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
                     <Heading as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>

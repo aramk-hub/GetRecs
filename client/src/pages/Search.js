@@ -16,6 +16,7 @@ import {
     PopoverCloseButton,
     PopoverHeader,
     PopoverBody,
+    Switch,
     FormControl,
     FormLabel,
     useColorModeValue,
@@ -59,6 +60,7 @@ const Search = () => {
     const [advancedSearch, setAdvancedSearch] = useState("");
     const [recs, setRecs] = useState([]);
     const [user, setUser] = useState(null);
+    const [searched, setSearched] = useState(false);
     
 
     const handleChange = (e) => {
@@ -82,6 +84,7 @@ const Search = () => {
         var trackList = document.getElementById('trackslist').value.split(',');
         var artistList = document.getElementById('artistlist').value.split(',');
         var genreSeeds = document.getElementById('genrelist').value.split(',');
+
         console.log(genreSeeds.toString())
 
         // if (!validateInputs(trackList, artistList, genreSeeds)) {
@@ -166,20 +169,20 @@ const Search = () => {
         recs.push(data.tracks);
         setRecs(data.tracks);
         console.log(recs);
-
+        setSearched(true);
         
     }
 
     const renderRecs = () => {
-        console.log("inside");
-
-        return (<Flex h="75vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
-            <Card  w="500px" maxHeight='500px'>
+        console.log("SEARCHED: " + searched);
+        if (searched) {
+        return (
+            <Card  w="500px" maxHeight='300px' bg={formBackground}>
             <CardHeader>
-                <Heading size='md'>Recommendations</Heading>
+                <Heading size='sm' align="center">Recommendations</Heading>
             </CardHeader>
 
-            <CardBody overflowY='auto'>
+            <CardBody overflowY='scroll'>
                 <Stack divider={<StackDivider />} spacing='4'>
                     {recs.map((track, i) => {
                         return (
@@ -201,7 +204,8 @@ const Search = () => {
                 </Stack>
             </CardBody>
             </Card>
-        </Flex>);
+       );
+        }
     }
 
     return (
@@ -211,20 +215,19 @@ const Search = () => {
                 
                 
                 <Flex h="100vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
-                    <Card >
-                        
-                        <Flex
-                            gridColumn="2"
-                            alignItems={"center"}
-                            justifyContent={"center"}
+                    <Flex 
+                        gridColumn="2"
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        w='100%'
+                        flexDirection="column"
+                        p={6}
+                        borderRadius={8}
                             
-                            w='1000px'
-                            flexDirection="column"
-                            bg={formBackground}
-                            p={12}
-                            borderRadius={8}
-                            boxShadow="lg"
-                        >       
+                    > 
+                    <Card  position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
+                        
+                              
                         <CardHeader>
                             <Heading size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
@@ -284,10 +287,6 @@ const Search = () => {
                                             <NumberDecrementStepper />
                                         </NumberInputStepper>
                                         </NumberInput>
-                                        {/* <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiHash} color={"gray.500"} />
-                                        </InputLeftElement>
-                                        <Input placeholder='20 (1-100)' id="limit"/> */}
                                         </InputGroup>
                                     </FormControl>
                                 </HStack>
@@ -397,12 +396,12 @@ const Search = () => {
                                 
                             </HStack>
                             </Fragment>
-                        </Flex>
+                            {renderRecs()}
                     </Card>
-                    
+                    </Flex>
                 </Flex>
 
-                {renderRecs()}
+                
             </div>
         </div>
     );
