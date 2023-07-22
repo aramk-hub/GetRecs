@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    Center,
     Icon,
     Box,
     StackDivider,
@@ -17,6 +18,7 @@ import {
     PopoverHeader,
     PopoverBody,
     Switch,
+    Spacer,
     FormControl,
     FormLabel,
     useColorModeValue,
@@ -165,7 +167,7 @@ const Search = () => {
                 seed_genres: genreSeeds.toString(),
                 seed_tracks: trackSeeds.toString(),
                 limit: limit,
-                // target_time_signature: meter,
+                // target_time_signature: 7,
                 // target_tempo: BPM,
                 // target_key: key
             },
@@ -186,18 +188,18 @@ const Search = () => {
         console.log("SEARCHED: " + searched);
         if (searched) {
         return (
-            <Card  w="500px" maxHeight='300px' bg={formBackground}>
-            <CardHeader>
-                <Heading size='sm' align="center">Recommendations</Heading>
+            <Card  w="700px" h="400px" bg={formBackground}>
+            <CardHeader h='20px'>
+                <Heading size='md' align="center">Recommendations</Heading>
             </CardHeader>
 
             <CardBody overflowY='scroll'>
-                <Stack divider={<StackDivider />} spacing='4'>
+                <Stack divider={<StackDivider />} spacing='2'>
                     {recs.map((track, i) => {
                         return (
-                            <Box>
+                            <Box h='45px'>
                                 {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
-                                <Image float="right" h='75px' w='75px' align='right' src={track.album.images[0].url}/>
+                                <Image float="right" h='45px' w='45px' align='right' src={track.album.images[0].url}/>
                                 {/* </Link> */}
                                 <Heading size='xs' textTransform='uppercase'>
                                 <Link color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
@@ -234,62 +236,62 @@ const Search = () => {
                         borderRadius={8}
                             
                     > 
-                    <Card color="gray.300" opacity="80%" position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
+                    <Card h="92%" color="gray.300" opacity="80%" position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
                         
                               
                         <CardHeader>
-                            <Heading color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
+                            <Heading h="0" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
-                        <CardBody color="blackAlpha.900">
+                        <CardBody color="blackAlpha.900" marginBottom="0px" >
                             The site utilizes Spotify's very own recommendation algorithm, except it is fine tuned to exactly
                             what you want to get recommendations based on. The algorithm <b>requires</b> at least one of the 
                             tracks, artists, or genres section to be filled in, though you could fill in more than just one. 
                             In fact, you can fill in all three of them, <b>but</b> you can only input 5 items across those three
-                            groups in total. There are also some advanced search options, such as time signature (3/4, 4/4, etc.)
-                            or beats per minute (BPM) for when you really want to find something specific like Money's unique 7/4 
-                            time signature! Have fun!
-                        </CardBody>                             
+                            groups in total. Have fun!
+                                                   
                             <Fragment>
-                                <VStack>
+                                
+                                {/* <VStack marginTop="15px"> */}
+                                <FormControl marginTop="10px" direction="row" w="100px">
+                                <VStack display="inline-block">
                                 <HStack
-                                    
+                                    marginLeft={4}
                                     spacing={4}
-                                    align='center'
                                 >
-                                    <FormControl>
+                                        <div className="form-group">
                                         <FormLabel color="blackAlpha.900">Artists</FormLabel>
                                         <InputGroup>
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiUsers} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
+                                        <Input w="200px" color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
                                         </InputGroup>
-                                    </FormControl>
+                                        </div>
 
-                                    <FormControl>
+                                        <div className="form-group">
                                         <FormLabel color="blackAlpha.900">Genres</FormLabel>
                                         <InputGroup>
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiFolder} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
+                                        <Input w="200px" color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
                                         </InputGroup>
-                                    </FormControl>
+                                        </div>
 
-                                    <FormControl >
+                                        <div className="form-group">
                                         <FormLabel color="blackAlpha.900">Tracks</FormLabel>
                                         <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiMusic} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
+                                        <Input w="200px" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
                                         </InputGroup>
-                                    </FormControl>
+                                        </div>
 
-                                    <FormControl>
+                                        <div className="form-group">
                                         <FormLabel color="blackAlpha.900">Limit</FormLabel>
                                         <InputGroup>
-                                        <NumberInput color="blackAlpha.900" id="limit" w="75px" defaultValue={20} min={1} max={100}>
+                                        <NumberInput w="40px" color="blackAlpha.900" id="limit" w="75px" defaultValue={20} min={1} max={100}>
                                         <NumberInputField />
                                         <NumberInputStepper>
                                             <NumberIncrementStepper />
@@ -297,10 +299,40 @@ const Search = () => {
                                         </NumberInputStepper>
                                         </NumberInput>
                                         </InputGroup>
-                                    </FormControl>
+                                        </div>
+                                                                    
+                                
                                 </HStack>
-                                    <Stack direction="row" spacing='24px'>
-                                    <Fragment>
+                                <Center>
+                                <Button marginLeft="40px" marginTop="20px" w="20%" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
+                                        Get Recs
+                                </Button>
+                                </Center>
+                                </VStack>
+                                </FormControl>
+                                {/* </VStack> */}
+                                
+                                </Fragment>
+                                    
+                                
+                            {/* </HStack> */}
+                            {/* </Fragment> */}
+                            </CardBody>
+                            {renderRecs()}
+                    </Card>
+                    </Flex>
+                </Flex>
+
+                
+            </div>
+        </div>
+    );
+};
+
+export default Search;
+                                
+                                    {/* <Stack direction="row" spacing='24px'> */}
+                                    {/* <Fragment> */}
                                     
                                     {/* <FormControl>
                                     
@@ -379,15 +411,13 @@ const Search = () => {
                                     </FormControl> */}
 
                                     
-                                    </Fragment>
-                                    </Stack>
                                     
-                                    </VStack>
                             
                             
-                            <HStack>
-                            <Flex h="75px" alignContent="center" justifyContent="center"/>
-                                <FormControl as={SimpleGrid} columns={{ base: 2, lg: 1 }}>
+                            {/* <HStack> */}
+                            
+                            {/* <Flex h="75px" alignContent="center" justifyContent="center"/> */}
+                                {/* <FormControl as={SimpleGrid} columns={{ base: 2, lg: 3 }}> */}
                                 {/* <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
                                 <Switch 
                                     id="advancedSearch" 
@@ -396,24 +426,6 @@ const Search = () => {
                                     size='lg' 
                                     onChange={handleChange}
                                 /> */}
-
-                                <Button opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
-                                        Get Recs
-                                </Button>
-                                </FormControl>
-                            
                                 
-                            </HStack>
-                            </Fragment>
-                            {renderRecs()}
-                    </Card>
-                    </Flex>
-                </Flex>
-
-                
-            </div>
-        </div>
-    );
-};
+                                
  
-export default Search;
