@@ -64,6 +64,7 @@ export default function Sidebar() {
                 as="nav"
             >
                 <IconButton
+                    color="gray.400"
                     background="none"
                     mt={5}
                     _hover={{ background: 'none' }}
@@ -94,7 +95,7 @@ export default function Sidebar() {
                     {console.log(user)}
                 <Avatar size="sm" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
                 <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                    <Heading as="h3" size="sm">{user.display_name}</Heading>
+                    <Heading color="gray.400" as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
                 </Fragment>
                 

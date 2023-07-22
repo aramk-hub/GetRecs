@@ -51,6 +51,7 @@ import SignIn from './SignIn';
 import './search.css'
 import '../theme.js'
 import axios from 'axios';
+import background from "./record-image.jpeg";
 
  
 const Search = () => {
@@ -62,6 +63,10 @@ const Search = () => {
     const [user, setUser] = useState(null);
     const [searched, setSearched] = useState(false);
     
+    document.addEventListener('DOMContentLoaded', function GetFavColor() {
+            document.body.style.backgroundColor = {background};
+    });
+    
 
     const handleChange = (e) => {
         var advancedSearch = document.getElementById("advancedSearch").checked;
@@ -71,11 +76,12 @@ const Search = () => {
             
     }
 
-    // const validateInputs = (trackList, artistList, genreSeeds) => {
-    //     if (trackList.length + artistList.length + genreSeeds.length > 5) {
-    //         return false;
-    //     }
-    // }
+    const validateInputs = (trackList, artistList, genreSeeds) => {
+        console.log("VALIDATING INPUTS");
+        if (trackList.length + artistList.length + genreSeeds.length > 5) {
+            return false;
+        }
+    }
 
     
 
@@ -85,6 +91,9 @@ const Search = () => {
         var artistList = document.getElementById('artistlist').value.split(',');
         var genreSeeds = document.getElementById('genrelist').value.split(',');
 
+        if (!validateInputs(trackList, artistList, genreSeeds)) {
+
+        }
         console.log(genreSeeds.toString())
 
         // if (!validateInputs(trackList, artistList, genreSeeds)) {
@@ -225,13 +234,13 @@ const Search = () => {
                         borderRadius={8}
                             
                     > 
-                    <Card  position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
+                    <Card color="gray.300" opacity="80%" position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
                         
                               
                         <CardHeader>
-                            <Heading size='md'>Welcome! Here's how it works...</Heading>
+                            <Heading color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody color="blackAlpha.900">
                             The site utilizes Spotify's very own recommendation algorithm, except it is fine tuned to exactly
                             what you want to get recommendations based on. The algorithm <b>requires</b> at least one of the 
                             tracks, artists, or genres section to be filled in, though you could fill in more than just one. 
@@ -248,39 +257,39 @@ const Search = () => {
                                     align='center'
                                 >
                                     <FormControl>
-                                        <FormLabel>Artists</FormLabel>
+                                        <FormLabel color="blackAlpha.900">Artists</FormLabel>
                                         <InputGroup>
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiUsers} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input placeholder='Tame Impala, Nas' id="artistlist"/>
+                                        <Input color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
                                         </InputGroup>
                                     </FormControl>
 
                                     <FormControl>
-                                        <FormLabel>Genres</FormLabel>
+                                        <FormLabel color="blackAlpha.900">Genres</FormLabel>
                                         <InputGroup>
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiFolder} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input placeholder='rap, alternative' id="genrelist"/>
+                                        <Input color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
                                         </InputGroup>
                                     </FormControl>
 
-                                    <FormControl>
-                                        <FormLabel>Tracks</FormLabel>
-                                        <InputGroup>
+                                    <FormControl >
+                                        <FormLabel color="blackAlpha.900">Tracks</FormLabel>
+                                        <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
                                             <Icon as={FiMusic} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input placeholder='A&W, As It Was' id="trackslist"/>
+                                        <Input color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
                                         </InputGroup>
                                     </FormControl>
 
                                     <FormControl>
-                                        <FormLabel>Limit</FormLabel>
+                                        <FormLabel color="blackAlpha.900">Limit</FormLabel>
                                         <InputGroup>
-                                        <NumberInput id="limit" w="75px" defaultValue={20} min={1} max={100}>
+                                        <NumberInput color="blackAlpha.900" id="limit" w="75px" defaultValue={20} min={1} max={100}>
                                         <NumberInputField />
                                         <NumberInputStepper>
                                             <NumberIncrementStepper />
@@ -388,7 +397,7 @@ const Search = () => {
                                     onChange={handleChange}
                                 /> */}
 
-                                <Button colorScheme='purple' size='md' onClick={handleClick}>
+                                <Button opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
                                         Get Recs
                                 </Button>
                                 </FormControl>
