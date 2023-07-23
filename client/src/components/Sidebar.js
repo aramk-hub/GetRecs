@@ -95,9 +95,9 @@ export default function Sidebar() {
                 
                 <Fragment>
                     {console.log(user)}
-                <Avatar size="sm" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
-                <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                    <Heading color="gray.400" fontSize="2vh" as="h3" size="sm">{user.display_name}</Heading>
+                <Avatar maxH="4vmin" maxW="4vmin" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
+                <Flex flexDir="column" ml={2} display={navSize === "small" ? "none" : "flex"}>
+                    <Heading color="gray.400" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
                 </Fragment>
                 
