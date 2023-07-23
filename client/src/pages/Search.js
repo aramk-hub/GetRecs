@@ -242,6 +242,7 @@ const Search = () => {
                     <Card  
                         minWidth="35%"
                         maxWidth="85%"
+                        maxHeight="125%"
                         overflowY='auto' 
                         color="gray.300" 
                         opacity="80%" 
@@ -283,19 +284,19 @@ const Search = () => {
                                         <FormLabel fontSize= "2vmin" color="blackAlpha.900">Artists</FormLabel>
                                         <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiUsers} color={"gray.500"} />
+                                            <Icon fontSize= "2vmin" as={FiUsers} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input w="100%" color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
                                         </InputGroup>
                                         </div>
 
                                         <div className="form-group" >
                                         <FormLabel fontSize= "2vmin" color="blackAlpha.900">Genres</FormLabel>
-                                        <InputGroup>
+                                        <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiFolder} color={"gray.500"} />
+                                            <Icon fontSize= "2vmin" float="left" as={FiFolder} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input w="100%" color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
                                         </InputGroup>
                                         </div>
 
@@ -303,9 +304,9 @@ const Search = () => {
                                         <FormLabel fontSize= "2vmin" color="blackAlpha.900">Tracks</FormLabel>
                                         <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiMusic} color={"gray.500"} />
+                                            <Icon fontSize= "2vmin" float="left" as={FiMusic} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input w="100%" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
                                         </InputGroup>
                                         </div>
 
@@ -313,8 +314,8 @@ const Search = () => {
                                         
                                         <FormLabel fontSize= "2vmin"color="blackAlpha.900">Limit</FormLabel>
                                         <InputGroup>
-                                        <NumberInput  w="100%" color="blackAlpha.900" id="limit" w="75px" defaultValue={20} min={1} max={100}>
-                                        <NumberInputField />
+                                        <NumberInput fontSize= "2vmin" w="75px" color="blackAlpha.900" id="limit" defaultValue={20} min={1} max={100}>
+                                        <NumberInputField fontSize= "2vmin" />
                                         <NumberInputStepper>
                                             <NumberIncrementStepper />
                                             <NumberDecrementStepper />
