@@ -34,9 +34,9 @@ const SignIn = () => {
 
   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=token`;
   const navigate = useNavigate();
-  document.addEventListener('DOMContentLoaded', function GetFavColor() {
-    document.body.style.backgroundColor = {background};
-  });
+  // document.addEventListener('DOMContentLoaded', function GetFavColor() {
+  //   document.body.style.backgroundColor = {background};
+  // });
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -81,12 +81,6 @@ const SignIn = () => {
           <FormLabel htmlFor="dark_mode" mb="0">
             Enable Dark Mode?
           </FormLabel>
-          <Switch
-            id="dark_mode"
-            colorScheme="teal"
-            size="lg"
-            onChange={toggleColorMode}
-          />
         </FormControl>
       </Flex>
     </Flex>

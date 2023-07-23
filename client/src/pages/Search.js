@@ -65,9 +65,9 @@ const Search = () => {
     const [user, setUser] = useState(null);
     const [searched, setSearched] = useState(false);
     
-    document.addEventListener('DOMContentLoaded', function GetFavColor() {
-            document.body.style.backgroundColor = {background};
-    });
+    // document.addEventListener('DOMContentLoaded', function GetFavColor() {
+    //         //document.body.style.backgroundColor = {background};
+    // });
     
 
     const handleChange = (e) => {
@@ -188,18 +188,18 @@ const Search = () => {
         console.log("SEARCHED: " + searched);
         if (searched) {
         return (
-            <Card  w="700px" h="400px" bg={formBackground}>
-            <CardHeader h='20px'>
+            <Card overflowY='scroll' position="sticky" minWidth="25%" maxWidth="100%" height="60%" bg="gray.50">
+            <CardHeader maxHeight="60px">
                 <Heading size='md' align="center">Recommendations</Heading>
             </CardHeader>
 
-            <CardBody overflowY='scroll'>
+            <CardBody overflowY="scroll">
                 <Stack divider={<StackDivider />} spacing='2'>
                     {recs.map((track, i) => {
                         return (
-                            <Box h='45px'>
+                            <Box maxHeight='100%'>
                                 {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
-                                <Image float="right" h='45px' w='45px' align='right' src={track.album.images[0].url}/>
+                                <Image float="right" maxHeight='45px' maxWidth='45px' align='right' src={track.album.images[0].url}/>
                                 {/* </Link> */}
                                 <Heading size='xs' textTransform='uppercase'>
                                 <Link color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
@@ -221,11 +221,11 @@ const Search = () => {
 
     return (
         <div>
-            <div className="search">
+            <div className="search" margin="0 auto" overflow-y="auto">
                 <Sidebar />
                 
                 
-                <Flex h="100vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+                <Flex position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
                     <Flex 
                         gridColumn="2"
                         alignItems={"center"}
@@ -233,14 +233,26 @@ const Search = () => {
                         w='100%'
                         flexDirection="column"
                         p={6}
-                        borderRadius={8}
+                        // borderRadius={8}
                             
                     > 
-                    <Card h="92%" color="gray.300" opacity="80%" position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
+                    <Card  
+                        minWidth="35%"
+                        maxWidth="85%"
+                        overflowY='auto' 
+                        color="gray.300" 
+                        opacity="80%" 
+                        position="absolute" 
+                        top="5%" 
+                        align="center" 
+                        p={6} 
+                        boxShadow="lg" 
+                        
+                    >
                         
                               
                         <CardHeader>
-                            <Heading h="0" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
+                            <Heading h="5" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
                         <CardBody color="blackAlpha.900" marginBottom="0px" >
                             The site utilizes Spotify's very own recommendation algorithm, except it is fine tuned to exactly
@@ -253,8 +265,9 @@ const Search = () => {
                                 
                                 {/* <VStack marginTop="15px"> */}
                                 <FormControl marginTop="10px" direction="row" w="100px">
-                                <VStack display="inline-block">
+                                <VStack display="inline-block" position="relative">
                                 <HStack
+                                    //minWidth="500px"
                                     marginLeft={4}
                                     spacing={4}
                                 >
@@ -318,9 +331,11 @@ const Search = () => {
                             {/* </HStack> */}
                             {/* </Fragment> */}
                             </CardBody>
-                            {renderRecs()}
+                            {renderRecs()}    
                     </Card>
+                    
                     </Flex>
+                    
                 </Flex>
 
                 
