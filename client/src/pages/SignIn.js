@@ -28,7 +28,8 @@ const SignIn = () => {
    const RESPONSE_TYPE = "token";
    const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private"
    
-
+  window.localStorage.setItem("time", Date.now());
+  console.log(window.localStorage.getItem("time"))
   const [token, setToken] = useState("");
   const REDIRECT_URI = "http://localhost:3000";
 
