@@ -47,7 +47,7 @@ import {
     FiUsers,
 } from 'react-icons/fi'
 
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate }
     from 'react-router-dom';
 import Sidebar from "../components/Sidebar";
@@ -73,6 +73,21 @@ const Search = () => {
     //         //document.body.style.backgroundColor = {background};
     // });
 
+    useEffect(() => {
+        const fetchUser = async () => {
+        const{data} = await axios({
+            url: 'https://api.spotify.com/v1/me',
+            
+            method: 'get',
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        })
+        setUser(data);
+    }
+    fetchUser();       
+    }, []);
+
     const validateInputs = (trackList, artistList, genreSeeds) => {
         console.log("VALIDATING INPUTS");
         if (trackList.length + artistList.length + genreSeeds.length > 5) {
@@ -88,10 +103,9 @@ const Search = () => {
         var artistList = document.getElementById('artistlist').value.split(',');
         var genreSeeds = document.getElementById('genrelist').value.split(',');
 
-        if (!validateInputs(trackList, artistList, genreSeeds)) {
+        // if (!validateInputs(trackList, artistList, genreSeeds)) {
 
-        }
-        console.log(genreSeeds.toString())
+        // }
 
         // if (!validateInputs(trackList, artistList, genreSeeds)) {
         //     <alert>Check your inputs</alert>
@@ -116,7 +130,6 @@ const Search = () => {
                 }
             })
             artistSeeds.push(data.artists.items[0].id);
-            console.log("artistseeds: " + artistSeeds)
         }
 
         // Get TrackID
@@ -137,11 +150,9 @@ const Search = () => {
                 }
             })
             trackSeeds.push(data.tracks.items[0].id);
-            console.log("trackseeds: " + trackSeeds)
         }
 
         var limit = parseInt(document.getElementById('limit').value);
-        console.log("limit" + limit)
 
         var recs = [];
         const{data} = await axios({
@@ -160,19 +171,62 @@ const Search = () => {
                 Authorization : `Bearer ${token}`
             }
         })
-        console.log(artistSeeds.toString())
         recs.push(data.tracks);
         setRecs(data.tracks);
-        console.log(recs);
         setSearched(true);
         
     }
 
-    const createPlaylist = () => {
+    const createPlaylist = async () => {
+        console.log(user)
         
         console.log(playlistCreated)
+        var pl_name = document.getElementById('playlist_name').value;
+        var pl_description = document.getElementById('playlist_description').value;
+
+        const{data} = await axios({
+            url: `https://api.spotify.com/v1/users/${user.id}/playlists`,
+            params: {
+                name: pl_name.toString(),
+                description: pl_description.toString(),
+                public: true
+
+            },
+            method: 'post',
+            headers: {
+                Authorization : `Bearer ${token}`,
+                ContentType: 'application/json'
+            }
+        });
+
+        var track_uris = {
+            uris: []
+        };
         
+        for(var i in recs) {    
         
+            var track = recs[i];   
+        
+            track_uris.tracks.push({ 
+                "spotify:tracks" : track.id
+            });
+        }
+        console.log("track uris: " + track_uris);
+
+        await axios({
+            url: `https://api.spotify.com/v1/playlists/${data.id}/tracks`,
+            params: {
+                position: 0,
+                uris: track_uris
+
+            },
+            method: 'post',
+            headers: {
+                Authorization : `Bearer ${token}`,
+                ContentType: 'application/json'
+            }
+        });
+
         setPlaylistCreated(true);
         console.log(playlistCreated)
         onClose();
@@ -180,7 +234,6 @@ const Search = () => {
     }
 
     const renderRecs = () => {
-        console.log("SEARCHED: " + searched);
         if (searched) {
         return (
             <Fragment>
@@ -221,11 +274,16 @@ const Search = () => {
                 <ModalHeader >Create a Playlist</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody >
-                    This playlist will be added to your spotify account. Let's give it a name!
-                    <Input 
-                        color="blackAlpha.900" 
-                        id="playlist_name"
-                    />
+                    This playlist will be added to your spotify account. Let's give it a name and a description!
+                    <FormControl mt={4}>
+                    <FormLabel>Playlist Name</FormLabel>
+                    <Input color="blackAlpha.900" id='playlist_name' />
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                    <FormLabel>Description</FormLabel>
+                    <Input color="blackAlpha.900" id='playlist_description' />
+                    </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
@@ -247,7 +305,7 @@ const Search = () => {
     const checkLogin = () => {
         console.log(window.localStorage.getItem("time") / 36e5)
         //console.log(Date.now() / 36e5)
-        console.log("Time diff: " + Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5)
+        //console.log("Time diff: " + Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5)
         return Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5 > 1 ? <Navigate to='/'/> : null
     }
 
