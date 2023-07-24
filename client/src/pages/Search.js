@@ -1,5 +1,10 @@
 import React from "react";
 import {
+    Alert, 
+    AlertIcon, 
+    AlertTitle,
+    AlertDescription,
+    CloseButton,
     Center,
     Icon,
     Box,
@@ -10,32 +15,29 @@ import {
     Image, 
     Link,
     Button,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverArrow,
-    PopoverCloseButton,
-    PopoverHeader,
-    PopoverBody,
-    Switch,
-    Spacer,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
     FormControl,
     FormLabel,
     useColorModeValue,
     VStack,
-    SimpleGrid,
     NumberInput,
     NumberInputField,
     NumberIncrementStepper,
     NumberDecrementStepper,
     NumberInputStepper,
-    HStack,
     InputGroup,
     InputLeftElement,
     Card,
     CardHeader,
     CardBody,
     Stack,
+    useDisclosure,
     Text
   } from '@chakra-ui/react';
 import {
@@ -65,18 +67,11 @@ const Search = () => {
     const [user, setUser] = useState(null);
     const [searched, setSearched] = useState(false);
     const navigate = useNavigate();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [playlistCreated, setPlaylistCreated] = useState(false);
     // document.addEventListener('DOMContentLoaded', function GetFavColor() {
     //         //document.body.style.backgroundColor = {background};
     // });
-    
-
-    const handleChange = (e) => {
-        var advancedSearch = document.getElementById("advancedSearch").checked;
-        console.log(advancedSearch);
-
-
-            
-    }
 
     const validateInputs = (trackList, artistList, genreSeeds) => {
         console.log("VALIDATING INPUTS");
@@ -145,17 +140,6 @@ const Search = () => {
             console.log("trackseeds: " + trackSeeds)
         }
 
-        
-
-        // var meter = parseInt(document.getElementById('target_time_signature').value)
-        // console.log(meter);
-
-        // var BPM = parseFloat(document.getElementById('target_tempo').value)
-        // console.log(BPM);
-
-        // var key = parseFloat(document.getElementById('target_key').value)
-        // console.log(key);
-
         var limit = parseInt(document.getElementById('limit').value);
         console.log("limit" + limit)
 
@@ -184,10 +168,22 @@ const Search = () => {
         
     }
 
+    const createPlaylist = () => {
+        
+        console.log(playlistCreated)
+        
+        
+        setPlaylistCreated(true);
+        console.log(playlistCreated)
+        onClose();
+        
+    }
+
     const renderRecs = () => {
         console.log("SEARCHED: " + searched);
         if (searched) {
         return (
+            <Fragment>
             <Card overflowY='scroll' position="sticky" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%" bg="gray.50">
             <CardHeader maxHeight="60px">
                 <Heading fontSize='3vmin' align="center">Recommendations</Heading>
@@ -214,21 +210,58 @@ const Search = () => {
                     })}
                 </Stack>
             </CardBody>
+
+            <Center>
+            <Button mb={3} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" marginTop="20px" width="15" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={onOpen}>
+                                    Convert to Playlist
+            </Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay backdropFilter='blur(10px)'/>
+                <ModalContent>
+                <ModalHeader >Create a Playlist</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody >
+                    This playlist will be added to your spotify account. Let's give it a name!
+                    <Input 
+                        color="blackAlpha.900" 
+                        id="playlist_name"
+                    />
+                </ModalBody>
+
+                <ModalFooter>
+                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" colorScheme='purple' mr={3} onClick={onClose}>
+                    Close
+                    </Button>
+                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden"   size='md' onClick={createPlaylist}>Create</Button>
+                </ModalFooter>
+                </ModalContent>
+            </Modal>
+            </Center>
             </Card>
+            
+            </Fragment>
        );
         }
+    }
+
+    const checkLogin = () => {
+        console.log(window.localStorage.getItem("time") / 36e5)
+        //console.log(Date.now() / 36e5)
+        console.log("Time diff: " + Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5)
+        return Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5 > 1 ? <Navigate to='/'/> : null
     }
 
     return (
         
         <div>
-            {Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5 > 1 ? navigate('/') : null}
-            <div className="search" margin="0 auto" overflow-y="auto">
+            {checkLogin()}
+            <div className="search" margin="0 auto" overflow-y="auto" >
                 <Sidebar />
                 
                 
-                <Flex position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+                <Flex  position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
                     <Flex 
+                        
                         flex='1 1 40%'
                         gridColumn="2"
                         alignItems={"center"}
@@ -240,6 +273,7 @@ const Search = () => {
                             
                     > 
                     <Card  
+                    
                         minWidth="35%"
                         maxWidth="85%"
                         maxHeight="135%"
@@ -332,23 +366,13 @@ const Search = () => {
                                 </Button>
                                 </Center>
                                 </VStack>
-                                </FormControl>
-                                {/* </VStack> */}
-                                
+                                </FormControl>                                
                                 </Fragment>
-                                    
-                                
-                            {/* </HStack> */}
-                            {/* </Fragment> */}
                             </CardBody>
                             {renderRecs()}    
                     </Card>
-                    
                     </Flex>
-                    
                 </Flex>
-
-                
             </div>
         </div>
     );
@@ -356,101 +380,3 @@ const Search = () => {
 
 export default Search;
                                 
-                                    {/* <Stack direction="row" spacing='24px'> */}
-                                    {/* <Fragment> */}
-                                    
-                                    {/* <FormControl>
-                                    
-                                    <FormLabel>Meter</FormLabel>
-                                    <Popover trigger="hover" OpenDelay="100" closeDelay="100">
-                                        <PopoverTrigger>
-                                            <InputGroup>
-                                            <NumberInput id="target_time_signature" w="75px" min={3} max={7}>
-                                            <NumberInputField />
-                                            <NumberInputStepper>
-                                                <NumberIncrementStepper />
-                                                <NumberDecrementStepper />
-                                            </NumberInputStepper>
-                                            </NumberInput>
-                                            </InputGroup>
-                                        </PopoverTrigger>
-                                        <PopoverContent>
-                                            <PopoverArrow />
-                                            <PopoverCloseButton />
-                                            <PopoverBody>An estimated time signature. The time signature (meter) is a notational
-                                                 convention to specify how many beats are in each bar (or measure). The time 
-                                                 signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".</PopoverBody>
-                                        </PopoverContent>
-                                        </Popover>
-                                    </FormControl>
-                                    
-                                    <FormControl>
-                                    <FormLabel>BPM</FormLabel>
-                                        <Popover trigger="hover" OpenDelay="100" closeDelay="100">
-                                        <PopoverTrigger>
-                                            <InputGroup>
-                                            <NumberInput id="target_tempo" w="75px">
-                                            <NumberInputField />
-                                            <NumberInputStepper>
-                                                <NumberIncrementStepper />
-                                                <NumberDecrementStepper />
-                                            </NumberInputStepper>
-                                            </NumberInput>
-                                            </InputGroup>
-                                        </PopoverTrigger>
-                                        <PopoverContent>
-                                            <PopoverArrow />
-                                            <PopoverCloseButton />
-                                            <PopoverBody>The overall estimated tempo of a track in beats per minute (BPM). 
-                                                In musical terminology, tempo is the speed or pace of a given piece and 
-                                                derives directly from the average beat duration.</PopoverBody>
-                                        </PopoverContent>
-                                        </Popover>
-                                    
-                                    </FormControl>
-
-                                    <FormControl>
-                                        <FormLabel>Key</FormLabel>
-                                        <Popover trigger="hover" OpenDelay="100" closeDelay="100">
-                                        <PopoverTrigger>
-                                            <InputGroup>
-                                            <NumberInput id="target_key" w="75px" min={0} max={11}>
-                                            <NumberInputField />
-                                            <NumberInputStepper>
-                                                <NumberIncrementStepper />
-                                                <NumberDecrementStepper />
-                                            </NumberInputStepper>
-                                            </NumberInput>
-                                            </InputGroup>
-                                        </PopoverTrigger>
-                                        <PopoverContent>
-                                            <PopoverArrow />
-                                            <PopoverCloseButton />
-                                            <PopoverBody>The key the track is in. Integers map to pitches using standard <space/>
-                                            <Link color='purple.500' href='https://en.wikipedia.org/wiki/Pitch_class'>Pitch Class notation</Link>. 
-                                                E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, 
-                                                the value is -1.</PopoverBody>
-                                        </PopoverContent>
-                                        </Popover>
-                                        
-                                    </FormControl> */}
-
-                                    
-                                    
-                            
-                            
-                            {/* <HStack> */}
-                            
-                            {/* <Flex h="75px" alignContent="center" justifyContent="center"/> */}
-                                {/* <FormControl as={SimpleGrid} columns={{ base: 2, lg: 3 }}> */}
-                                {/* <FormLabel htmlFor="advancedSearch" alignContent="center">Advanced Search:</FormLabel>
-                                <Switch 
-                                    id="advancedSearch" 
-                                    label="Advanced search" 
-                                    colorScheme='purple' 
-                                    size='lg' 
-                                    onChange={handleChange}
-                                /> */}
-                                
-                                
- 
