@@ -188,9 +188,9 @@ const Search = () => {
         console.log("SEARCHED: " + searched);
         if (searched) {
         return (
-            <Card overflowY='scroll' position="sticky" minWidth="25%" maxWidth="100%" height="100%" bg="gray.50">
+            <Card overflowY='scroll' position="sticky" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%" bg="gray.50">
             <CardHeader maxHeight="60px">
-                <Heading size='md' align="center">Recommendations</Heading>
+                <Heading fontSize='3vmin' align="center">Recommendations</Heading>
             </CardHeader>
 
             <CardBody overflowY="scroll">
@@ -199,12 +199,12 @@ const Search = () => {
                         return (
                             <Box maxHeight='100%'>
                                 {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
-                                <Image float="right" height='7.5%' width='7.5%' align='right' src={track.album.images[0].url}/>
+                                <Image float="right" height='7vmin' width='7vmin' align='right' src={track.album.images[0].url}/>
                                 {/* </Link> */}
                                 <Heading size='xs' textTransform='uppercase'>
-                                <Link color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
+                                <Link fontSize="2vmin" color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
                                 </Heading>
-                                <Text pt='2' fontSize='sm'>
+                                <Text pt='2' fontSize='2vmin'>
                                     by <Link color="purple.500" target='_blank' href={track.artists[0].external_urls.spotify}>
                                         {track.artists[0].name}</Link>                        
                                 </Text>
@@ -242,7 +242,7 @@ const Search = () => {
                     <Card  
                         minWidth="35%"
                         maxWidth="85%"
-                        maxHeight="125%"
+                        maxHeight="135%"
                         overflowY='auto' 
                         color="gray.300" 
                         opacity="80%" 
@@ -257,7 +257,7 @@ const Search = () => {
                         
                               
                         <CardHeader marginLeft='auto' marginRight='auto'>
-                            <Heading  h="5%" alignText="center" fontSize="3vmin" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
+                            <Heading  h="1vmin" alignText="center" fontSize="3vmin" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
                         <CardBody fontSize= "2vmin" marginLeft='auto'
                                     marginRight='auto' float="left" color="blackAlpha.900" marginBottom="0px" >
@@ -327,7 +327,7 @@ const Search = () => {
                                 
                                 </Stack>
                                 <Center>
-                                <Button  whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" marginTop="20px" width="15" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
+                                <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" marginTop="20px" width="15" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
                                         Get Recs
                                 </Button>
                                 </Center>
