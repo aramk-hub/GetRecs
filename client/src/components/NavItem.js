@@ -35,11 +35,13 @@ export default function NavItem({ icon, title, description, active, navSize, hre
                     borderRadius={8}
                     _hover={{ textDecor: 'none', backgroundColor: "purple.300" }}
                     w={navSize == "large" && "100%"}
+                    h={navSize == "large" && "100%"}
+                    
                 >
-                    <MenuButton w="100%" onClick={handleLinkClick}>
+                    <MenuButton maxW="75%" onClick={handleLinkClick}>
                         <Flex>
-                            <Icon as={icon} fontSize="xl" color={active ? "purple.100" : "gray.400"} />
-                            <Text ml={5} color={active ? "purple.100" : "gray.400"} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
+                            <Icon as={icon} fontSize="2.5vmin" color={active ? "purple.100" : "gray.400"} />
+                            <Text fontSize="2vmin" ml={3} color={active ? "purple.100" : "gray.400"} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
                 </Link>

@@ -52,7 +52,8 @@ export default function Sidebar() {
             marginTop="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius={navSize == "small" ? "15px" : "30px"}
-            w={navSize == "small" ? "75px" : "200px"}
+            maxW={navSize == "small" ? "10%" : "200px"}
+            minW={navSize == "small" ? "5%" : "10%"}
             flexDir="column"
             justifyContent="space-between"
         >
@@ -64,6 +65,7 @@ export default function Sidebar() {
                 as="nav"
             >
                 <IconButton
+                    fontSize="2.5vmin"
                     color="gray.400"
                     background="none"
                     mt={5}
@@ -93,9 +95,9 @@ export default function Sidebar() {
                 
                 <Fragment>
                     {console.log(user)}
-                <Avatar size="sm" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
-                <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                    <Heading color="gray.400" as="h3" size="sm">{user.display_name}</Heading>
+                <Avatar maxH="4vmin" maxW="4vmin" src={user.images ? (user.images[0].url ? user.images[0].url : "avatar-1.jpg") : "avatar-1.jpg"} />
+                <Flex flexDir="column" ml={2} display={navSize === "small" ? "none" : "flex"}>
+                    <Heading color="gray.400" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
                 </Fragment>
                 

@@ -46,7 +46,7 @@ import {
 } from 'react-icons/fi'
 
 import { useState, Fragment } from "react";
-import { BrowserRouter as Router, Routes, Route }
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate }
     from 'react-router-dom';
 import Sidebar from "../components/Sidebar";
 import SignIn from './SignIn';
@@ -64,10 +64,10 @@ const Search = () => {
     const [recs, setRecs] = useState([]);
     const [user, setUser] = useState(null);
     const [searched, setSearched] = useState(false);
-    
-    document.addEventListener('DOMContentLoaded', function GetFavColor() {
-            document.body.style.backgroundColor = {background};
-    });
+    const navigate = useNavigate();
+    // document.addEventListener('DOMContentLoaded', function GetFavColor() {
+    //         //document.body.style.backgroundColor = {background};
+    // });
     
 
     const handleChange = (e) => {
@@ -188,23 +188,23 @@ const Search = () => {
         console.log("SEARCHED: " + searched);
         if (searched) {
         return (
-            <Card  w="700px" h="400px" bg={formBackground}>
-            <CardHeader h='20px'>
-                <Heading size='md' align="center">Recommendations</Heading>
+            <Card overflowY='scroll' position="sticky" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%" bg="gray.50">
+            <CardHeader maxHeight="60px">
+                <Heading fontSize='3vmin' align="center">Recommendations</Heading>
             </CardHeader>
 
-            <CardBody overflowY='scroll'>
+            <CardBody overflowY="scroll">
                 <Stack divider={<StackDivider />} spacing='2'>
                     {recs.map((track, i) => {
                         return (
-                            <Box h='45px'>
+                            <Box maxHeight='100%'>
                                 {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
-                                <Image float="right" h='45px' w='45px' align='right' src={track.album.images[0].url}/>
+                                <Image float="right" height='7vmin' width='7vmin' align='right' src={track.album.images[0].url}/>
                                 {/* </Link> */}
                                 <Heading size='xs' textTransform='uppercase'>
-                                <Link color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
+                                <Link fontSize="2vmin" color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
                                 </Heading>
-                                <Text pt='2' fontSize='sm'>
+                                <Text pt='2' fontSize='2vmin'>
                                     by <Link color="purple.500" target='_blank' href={track.artists[0].external_urls.spotify}>
                                         {track.artists[0].name}</Link>                        
                                 </Text>
@@ -220,29 +220,47 @@ const Search = () => {
     }
 
     return (
+        
         <div>
-            <div className="search">
+            {Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5 > 1 ? navigate('/') : null}
+            <div className="search" margin="0 auto" overflow-y="auto">
                 <Sidebar />
                 
                 
-                <Flex h="100vh" w="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+                <Flex position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
                     <Flex 
+                        flex='1 1 40%'
                         gridColumn="2"
                         alignItems={"center"}
                         justifyContent={"center"}
                         w='100%'
                         flexDirection="column"
                         p={6}
-                        borderRadius={8}
+                        // borderRadius={8}
                             
                     > 
-                    <Card h="92%" color="gray.300" opacity="80%" position="fixed" top="5%" align="center" w="60%" p={6} boxShadow="lg" bg={formBackground}>
+                    <Card  
+                        minWidth="35%"
+                        maxWidth="85%"
+                        maxHeight="135%"
+                        overflowY='auto' 
+                        color="gray.300" 
+                        opacity="80%" 
+                        position="absolute" 
+                        display="flex"
+                        top="5%" 
+                        align="center" 
+                        p={6} 
+                        boxShadow="lg" 
+                        
+                    >
                         
                               
-                        <CardHeader>
-                            <Heading h="0" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
+                        <CardHeader marginLeft='auto' marginRight='auto'>
+                            <Heading  h="1vmin" alignText="center" fontSize="3vmin" color="blackAlpha.900" size='md'>Welcome! Here's how it works...</Heading>
                         </CardHeader>
-                        <CardBody color="blackAlpha.900" marginBottom="0px" >
+                        <CardBody fontSize= "2vmin" marginLeft='auto'
+                                    marginRight='auto' float="left" color="blackAlpha.900" marginBottom="0px" >
                             The site utilizes Spotify's very own recommendation algorithm, except it is fine tuned to exactly
                             what you want to get recommendations based on. The algorithm <b>requires</b> at least one of the 
                             tracks, artists, or genres section to be filled in, though you could fill in more than just one. 
@@ -252,47 +270,52 @@ const Search = () => {
                             <Fragment>
                                 
                                 {/* <VStack marginTop="15px"> */}
-                                <FormControl marginTop="10px" direction="row" w="100px">
-                                <VStack display="inline-block">
-                                <HStack
-                                    marginLeft={4}
+                                <FormControl size="2vw" marginTop="10px" direction="row" alignItems="center">
+                                <VStack display="grid" position="relative">
+                                <Stack
+                                    
+                                    alignItems="center"
+                                    float='left'
+                                    direction="row"
+                                    flexWrap="wrap"
                                     spacing={4}
                                 >
-                                        <div className="form-group">
-                                        <FormLabel color="blackAlpha.900">Artists</FormLabel>
-                                        <InputGroup>
-                                        <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiUsers} color={"gray.500"} />
-                                        </InputLeftElement>
-                                        <Input w="200px" color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
-                                        </InputGroup>
-                                        </div>
-
-                                        <div className="form-group">
-                                        <FormLabel color="blackAlpha.900">Genres</FormLabel>
-                                        <InputGroup>
-                                        <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiFolder} color={"gray.500"} />
-                                        </InputLeftElement>
-                                        <Input w="200px" color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
-                                        </InputGroup>
-                                        </div>
-
-                                        <div className="form-group">
-                                        <FormLabel color="blackAlpha.900">Tracks</FormLabel>
+                                        <div className="form-group" >
+                                        <FormLabel fontSize= "2vmin" color="blackAlpha.900">Artists</FormLabel>
                                         <InputGroup >
                                         <InputLeftElement pointerEvents='none'>
-                                            <Icon as={FiMusic} color={"gray.500"} />
+                                            <Icon fontSize= "2vmin" as={FiUsers} color={"gray.500"} />
                                         </InputLeftElement>
-                                        <Input w="200px" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='Tame Impala, Nas' id="artistlist"/>
                                         </InputGroup>
                                         </div>
 
-                                        <div className="form-group">
-                                        <FormLabel color="blackAlpha.900">Limit</FormLabel>
+                                        <div className="form-group" >
+                                        <FormLabel fontSize= "2vmin" color="blackAlpha.900">Genres</FormLabel>
+                                        <InputGroup >
+                                        <InputLeftElement pointerEvents='none'>
+                                            <Icon fontSize= "2vmin" float="left" as={FiFolder} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='rap, alternative' id="genrelist"/>
+                                        </InputGroup>
+                                        </div>
+
+                                        <div className="form-group" >
+                                        <FormLabel fontSize= "2vmin" color="blackAlpha.900">Tracks</FormLabel>
+                                        <InputGroup >
+                                        <InputLeftElement pointerEvents='none'>
+                                            <Icon fontSize= "2vmin" float="left" as={FiMusic} color={"gray.500"} />
+                                        </InputLeftElement>
+                                        <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
+                                        </InputGroup>
+                                        </div>
+
+                                        <div className="form-group" >
+                                        
+                                        <FormLabel fontSize= "2vmin"color="blackAlpha.900">Limit</FormLabel>
                                         <InputGroup>
-                                        <NumberInput w="40px" color="blackAlpha.900" id="limit" w="75px" defaultValue={20} min={1} max={100}>
-                                        <NumberInputField />
+                                        <NumberInput fontSize= "2vmin" w="75px" color="blackAlpha.900" id="limit" defaultValue={20} min={1} max={100}>
+                                        <NumberInputField fontSize= "2vmin" />
                                         <NumberInputStepper>
                                             <NumberIncrementStepper />
                                             <NumberDecrementStepper />
@@ -302,9 +325,9 @@ const Search = () => {
                                         </div>
                                                                     
                                 
-                                </HStack>
+                                </Stack>
                                 <Center>
-                                <Button marginLeft="40px" marginTop="20px" w="20%" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
+                                <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" marginTop="20px" width="15" textAlign="center" opacity="1" colorScheme="purple" backgroundColor="purple.500" size='md' onClick={handleClick}>
                                         Get Recs
                                 </Button>
                                 </Center>
@@ -318,9 +341,11 @@ const Search = () => {
                             {/* </HStack> */}
                             {/* </Fragment> */}
                             </CardBody>
-                            {renderRecs()}
+                            {renderRecs()}    
                     </Card>
+                    
                     </Flex>
+                    
                 </Flex>
 
                 

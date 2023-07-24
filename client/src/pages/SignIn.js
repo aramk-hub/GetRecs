@@ -28,15 +28,16 @@ const SignIn = () => {
    const RESPONSE_TYPE = "token";
    const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private"
    
-
+  window.localStorage.setItem("time", Date.now());
+  console.log(window.localStorage.getItem("time"))
   const [token, setToken] = useState("");
   const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/";
 
   const path = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&scope=${SCOPES}&redirect_uri=${REDIRECT_URI}&response_type=token`;
   const navigate = useNavigate();
-  document.addEventListener('DOMContentLoaded', function GetFavColor() {
-    document.body.style.backgroundColor = {background};
-  });
+  // document.addEventListener('DOMContentLoaded', function GetFavColor() {
+  //   document.body.style.backgroundColor = {background};
+  // });
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -81,12 +82,6 @@ const SignIn = () => {
           <FormLabel htmlFor="dark_mode" mb="0">
             Enable Dark Mode?
           </FormLabel>
-          <Switch
-            id="dark_mode"
-            colorScheme="teal"
-            size="lg"
-            onChange={toggleColorMode}
-          />
         </FormControl>
       </Flex>
     </Flex>
