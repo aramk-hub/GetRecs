@@ -79,11 +79,11 @@ const SignIn = () => {
           <Image src={logo} boxSize='25px'/> &nbsp; Sign in with Spotify
         </Button>
         </a>
-        <FormControl display="flex" alignItems="center">
+        {/* <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="dark_mode" mb="0">
             Enable Dark Mode?
           </FormLabel>
-        </FormControl>
+        </FormControl> */}
       </Flex>
     </Flex>
     </div>
