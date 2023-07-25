@@ -353,22 +353,14 @@ const Search = () => {
             </Card>
             
             </Fragment>
-       );
+        );
         }
-    }
-
-    const checkLogin = () => {
-        console.log(window.localStorage.getItem("time") / 36e5)
-        //console.log(Date.now() / 36e5)
-        //console.log("Time diff: " + Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5)
-        return Math.abs(Date.now() - window.localStorage.getItem("time")) / 36e5 > 1 ? <Navigate to='/'/> : null
     }
 
     return (
         
         
         <div>
-            {checkLogin()}
             <div className="search" margin="0 auto" overflow-y="auto" >
                 <Sidebar />
                 
