@@ -40,7 +40,9 @@ import {
     useDisclosure,
     Text,
     PopoverTrigger,
-    Popover
+    Popover,
+    Toast,
+    useToast
   } from '@chakra-ui/react';
 import {
     FiHash,
@@ -62,7 +64,7 @@ import background from "./record-image.jpeg";
  
 const Search = () => {
 
-
+    const toast = useToast();
     const formBackground = useColorModeValue('gray.100', 'gray.700');
     const token = window.localStorage.getItem("token");
     const [advancedSearch, setAdvancedSearch] = useState("");
@@ -279,6 +281,13 @@ const Search = () => {
         setPlaylistCreated(true);
         console.log("GREAT SUCCESS")
         onClose(); 
+        toast({
+            title: 'Playlist created!',
+            description: "You'll find it in your account!",
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+        });
 
     }
 
@@ -339,7 +348,8 @@ const Search = () => {
                     <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" colorScheme='purple' mr={3} onClick={onClose}>
                     Close
                     </Button>
-                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden"   size='md' onClick={createPlaylist}>Create</Button>
+                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden"   size='md' onClick={createPlaylist}>
+                    Create</Button>
                 </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -377,7 +387,7 @@ const Search = () => {
                         w='100%'
                         flexDirection="column"
                         p={6}
-                        // borderRadius={8}
+                        //borderRadius={8}
                             
                     > 
                     <Card  
