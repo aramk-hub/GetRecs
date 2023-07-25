@@ -74,10 +74,11 @@ const SignIn = () => {
         boxShadow="lg"
       >
         <Heading mb={6}>Log In</Heading>
-        
-        <Button colorScheme="brand" mb={8} onClick={handleClick}>
+        <a href={path}>
+        <Button colorScheme="brand" mb={8} >
           <Image src={logo} boxSize='25px'/> &nbsp; Sign in with Spotify
         </Button>
+        </a>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="dark_mode" mb="0">
             Enable Dark Mode?

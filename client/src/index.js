@@ -8,7 +8,6 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 var cors = require('cors')
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.use(cors())
 root.render(
   <React.StrictMode>
 
