@@ -101,6 +101,7 @@ export default function Sidebar() {
                 <Flex flexDir="column" ml={2} display={navSize === "small" ? "none" : "flex"}>
                     <Heading color="gray.400" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
+                
                 </Fragment>
                 
                 </Flex>
