@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn';
 import Sidebar from './components/Sidebar';
 import Search from './pages/Search';
 import Logout from './pages/Logout';
+import Dashboard from './pages/Dashboard'
 import { FiLogOut } from 'react-icons/fi';
 
 const theme = extendTheme({
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<SignIn/>}/>
           <Route path="/search" element={<Search/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="logout" element={<Logout/>}/>
         </Routes>
 

@@ -40,8 +40,6 @@ export default function Sidebar() {
     }
     fetchUser();       
     }, []);
-
-    console.log(user);
     
     return (
         <Flex
@@ -80,7 +78,7 @@ export default function Sidebar() {
                             changeNavSize("small")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" description="This is the description for the dashboard." />
+                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" href="/dashboard"/>
                 <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
                 <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
             </Flex>
@@ -96,7 +94,6 @@ export default function Sidebar() {
                 <Flex mt={4} align="center">
                 
                 <Fragment>
-                    {console.log(user)}
                 <Avatar maxH="4vmin" maxW="4vmin" src={(user.images === undefined || user.images.length == 0) ? "avatar-1.jpg" : (user.images[0] ? user.images[0].url : "avatar-1.jpg")} />
                 <Flex flexDir="column" ml={2} display={navSize === "small" ? "none" : "flex"}>
                     <Heading color="gray.400" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>

@@ -23,7 +23,6 @@ const Logout = () => {
     const navigate = useNavigate();
 
     function logout() {
-        console.log("trying to log out")
         window.localStorage.removeItem("token");
         navigate('/')
     }

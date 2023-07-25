@@ -1,15 +1,15 @@
 import React from 'react'
 import {
+    Link,
     Flex,
     Text,
     Icon,
-    Link,
     Menu,
     MenuButton,
     MenuList
 } from '@chakra-ui/react'
 import NavHoverBox from './NavHoverBox'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, NavLink as RouterLink} from 'react-router-dom'
 
 export default function NavItem({ icon, title, description, active, navSize, href }) {
 
@@ -28,8 +28,10 @@ export default function NavItem({ icon, title, description, active, navSize, hre
             alignItems={navSize == "small" ? "center" : "flex-start"}
         >
             <Menu placement="left">
+                
                 <Link
-                    href={href}
+                    as={RouterLink}
+                    to={href}
                     backgroundColor={active && "purple.500"}
                     p={3}
                     borderRadius={8}

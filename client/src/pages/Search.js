@@ -94,7 +94,6 @@ const Search = () => {
     }, []);
 
     const validateInputs = (trackList, artistList, genreSeeds) => {
-        console.log("VALIDATING INPUTS");
         if (trackList.length == 0 && artistList.length == 0 && genreSeeds.length == 0) {
             return "nothing";
         } else if (trackList.length + artistList.length + genreSeeds.length > 5) {
@@ -121,7 +120,6 @@ const Search = () => {
         
         if ( str == "nothing" || str == "excess") {
             if (str == "nothing") {
-                console.log("ERROR");
                 toast({
                     title: 'Whoops!',
                     description: "Looks like you didnt input anything!",
@@ -131,7 +129,6 @@ const Search = () => {
                 });
                 return null;
             } else {
-                console.log("ERROR");
                 toast({
                     title: 'Whoops!',
                     description: "Looks like you gave more than 5 items!",
@@ -146,7 +143,6 @@ const Search = () => {
             
         // Get ArtistIDs
         var artistSeeds = [];
-        console.log(artistList.toString())
         if (artistList.length > 0) {
             
             for (const artist of artistList) {
@@ -193,8 +189,6 @@ const Search = () => {
 
         const artist_param = artistSeeds.length == 0 ? "" : artistSeeds.toString()
         const track_param = trackSeeds.length == 0 ? "" : trackSeeds.toString()
-        console.log("artist seeds " + artistSeeds)
-        console.log("artist param: " + artist_param)
         const params = {
             seed_artists: artist_param,
             seed_genres: genreSeeds.toString(),
@@ -220,10 +214,9 @@ const Search = () => {
         })
         recs.push(data.tracks);
         setRecs(data.tracks);
-        console.log("RECS: " + recs);
         setSearched(true);
         } catch (error) {
-            console.log("CAUGHT");
+            console.log(error);
             
         }
         
@@ -231,7 +224,6 @@ const Search = () => {
 
     const createPlaylist = async () => {
         
-        console.log(playlistCreated)
         var pl_name = document.getElementById('playlist_name').value;
         var pl_description = document.getElementById('playlist_description').value;
 
@@ -246,10 +238,7 @@ const Search = () => {
             "public": true
         })
 
-        console.log(param)
-
         var arr = [];
-        console.log(recs);
         for (var rec in recs) {
             arr[rec] = "spotify:track:" + recs[rec].id.toString();
         }
@@ -257,7 +246,6 @@ const Search = () => {
         const bod = JSON.stringify({
             "uris" : arr
         })
-        
 
         const response = await fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
             method: "POST",
@@ -275,7 +263,6 @@ const Search = () => {
           })
             
         setPlaylistCreated(true);
-        console.log("GREAT SUCCESS")
         onClose(); 
         toast({
             title: 'Playlist created!',
