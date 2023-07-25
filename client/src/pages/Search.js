@@ -207,6 +207,8 @@ const Search = () => {
         const bod = JSON.stringify({
             "uris" : arr
         })
+        
+
         const response = await fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
             method: "POST",
             headers: headers, 
