@@ -96,11 +96,11 @@ const Search = () => {
     const validateInputs = (trackList, artistList, genreSeeds) => {
         console.log("VALIDATING INPUTS");
         if (trackList.length == 0 && artistList.length == 0 && genreSeeds.length == 0) {
-            return false;
+            return "nothing";
         } else if (trackList.length + artistList.length + genreSeeds.length > 5) {
-            return false;
+            return "excess";
         } else {
-            return true
+            return "good"
         }
     }
 
@@ -116,35 +116,31 @@ const Search = () => {
         trackList = trackList.filter(item => item);
         artistList = artistList.filter(item => item);
         genreSeeds = genreSeeds.filter(item => item);
+
+        const str = validateInputs(trackList, artistList, genreSeeds);
         
-        if (!validateInputs(trackList, artistList, genreSeeds)) {
-            console.log("ERROR");
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay backdropFilter='blur(10px)'/>
-                <ModalContent>
-                <ModalHeader >Create a Playlist</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody >
-                    This playlist will be added to your spotify account. Let's give it a name and a description!
-                    <FormControl mt={4}>
-                    <FormLabel>Playlist Name</FormLabel>
-                    <Input color="blackAlpha.900" id='playlist_name' />
-                    </FormControl>
-
-                    <FormControl mt={4}>
-                    <FormLabel>Description</FormLabel>
-                    <Input color="blackAlpha.900" id='playlist_description' />
-                    </FormControl>
-                </ModalBody>
-
-                <ModalFooter>
-                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" colorScheme='purple' mr={3} onClick={onClose}>
-                    Close
-                    </Button>
-                    <Button whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden"   size='md' onClick={createPlaylist}>Create</Button>
-                </ModalFooter>
-                </ModalContent>
-            </Modal>
+        if ( str == "nothing" || str == "excess") {
+            if (str == "nothing") {
+                console.log("ERROR");
+                toast({
+                    title: 'Whoops!',
+                    description: "Looks like you didnt input anything!",
+                    status: 'warning',
+                    duration: 5000,
+                    isClosable: true,
+                });
+                return null;
+            } else {
+                console.log("ERROR");
+                toast({
+                    title: 'Whoops!',
+                    description: "Looks like you gave more than 5 items!",
+                    status: 'warning',
+                    duration: 5000,
+                    isClosable: true,
+                });
+                return null;
+            }
         }
 
             
