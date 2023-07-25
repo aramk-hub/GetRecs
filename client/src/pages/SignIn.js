@@ -20,7 +20,7 @@ const SignIn = () => {
    const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
    const RESPONSE_TYPE = "token";
-   const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private"
+   const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private user-top-read"
    
   window.localStorage.setItem("time", Date.now());
   const [token, setToken] = useState("");

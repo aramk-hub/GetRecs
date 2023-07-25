@@ -67,11 +67,9 @@ const Search = () => {
     const toast = useToast();
     const formBackground = useColorModeValue('gray.100', 'gray.700');
     const token = window.localStorage.getItem("token");
-    const [advancedSearch, setAdvancedSearch] = useState("");
     const [recs, setRecs] = useState([]);
     const [user, setUser] = useState(null);
     const [searched, setSearched] = useState(false);
-    const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [playlistCreated, setPlaylistCreated] = useState(false);
     // document.addEventListener('DOMContentLoaded', function GetFavColor() {

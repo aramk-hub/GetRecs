@@ -69,7 +69,7 @@ export default function Sidebar() {
                     color="gray.400"
                     background="none"
                     mt={5}
-                    _hover={{ background: 'none' }}
+                    _hover={{ textDecor: 'none', backgroundColor: "purple.300" }}
                     icon={<FiMenu />}
                     onClick={() => {
                         if (navSize === "small")
