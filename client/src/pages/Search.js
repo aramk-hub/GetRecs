@@ -60,6 +60,7 @@ import background from "./record-image.jpeg";
  
 const Search = () => {
 
+
     const formBackground = useColorModeValue('gray.100', 'gray.700');
     const token = window.localStorage.getItem("token");
     const [advancedSearch, setAdvancedSearch] = useState("");
@@ -173,64 +174,72 @@ const Search = () => {
         })
         recs.push(data.tracks);
         setRecs(data.tracks);
+        console.log("RECS: " + recs);
         setSearched(true);
         
     }
 
     const createPlaylist = async () => {
-        console.log(user)
         
         console.log(playlistCreated)
         var pl_name = document.getElementById('playlist_name').value;
         var pl_description = document.getElementById('playlist_description').value;
 
-        const{data} = await axios({
-            url: `https://api.spotify.com/v1/users/${user.id}/playlists`,
-            params: {
-                name: pl_name.toString(),
-                description: pl_description.toString(),
-                public: true
-
-            },
-            method: 'post',
-            headers: {
-                Authorization : `Bearer ${token}`,
-                ContentType: 'application/json'
-            }
-        });
-
-        var track_uris = {
-            uris: []
+        const headers = {
+            "Authorization" : `Bearer ${token}`,
+            "Content-Type": "application/json"
         };
-        
-        for(var i in recs) {    
-        
-            var track = recs[i];   
-        
-            track_uris.tracks.push({ 
-                "spotify:tracks" : track.id
-            });
+
+        const param = JSON.stringify({
+            "name": pl_name,
+            "description": pl_description,
+            "public": true
+        })
+
+        console.log(param)
+
+        var arr = [];
+        console.log(recs);
+        for (var rec in recs) {
+            arr[rec] = "spotify:track:" + recs[rec].id.toString();
         }
-        console.log("track uris: " + track_uris);
 
-        await axios({
-            url: `https://api.spotify.com/v1/playlists/${data.id}/tracks`,
-            params: {
-                position: 0,
-                uris: track_uris
+        const bod = JSON.stringify({
+            "uris" : arr
+        })
+        const response = await fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, {
+            method: "POST",
+            headers: headers, 
+            body: param
+          }).then(response => response.json())
+          .then(async data => {
+            await fetch(`https://api.spotify.com/v1/playlists/${data['id']}/tracks`, {
+                    method: "POST",
+                    headers: headers, 
+                    body: bod
+                    })
+          }).catch(err => {
+              console.error('Request failed', err);
+          })
 
-            },
-            method: 'post',
-            headers: {
-                Authorization : `Bearer ${token}`,
-                ContentType: 'application/json'
-            }
-        });
+
+
+
+
+
+        //   const pl_id = await (response.json())['id']
+        //   await fetch(`https://api.spotify.com/v1/playlists/${pl_id}/tracks`, {
+        //     method: "POST",
+        //     headers: headers, 
+        //     body: bod
+        //     })
+            
 
         setPlaylistCreated(true);
-        console.log(playlistCreated)
-        onClose();
-        
+        console.log("GREAT SUCCESS")
+        onClose();      
+              
+                
     }
 
     const renderRecs = () => {
