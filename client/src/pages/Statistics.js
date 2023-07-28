@@ -31,6 +31,7 @@ function Statistics() {
     const [user, setUser] = useState(null);
     const [topArtists, setTopArtists] = useState([]);
     const [topTracks, setTopTracks] = useState([]);
+    
 
     useEffect(() => {
         const getTopArtists = async (timerange, limit) => {
