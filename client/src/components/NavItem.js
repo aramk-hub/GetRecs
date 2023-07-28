@@ -46,7 +46,7 @@ export default function NavItem({ icon, title, active, navSize, href }) {
                             ml={3} 
                             whileHover="purple.100" 
                             color={active ? "purple.100" : "gray.400"} 
-                            ddisplay={navSize == "small" ? "none" : "flex"}>
+                            display={navSize == "small" ? "none" : "flex"}>
                                 {title}
                             </Text>
                         </Flex>

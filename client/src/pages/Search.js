@@ -348,9 +348,8 @@ const Search = () => {
         <div>
             <div className="search" margin="0 auto" overflow-y="auto" >
                 <Sidebar />
-                
-                
-                <Flex  position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
+
+                <Flex position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
                     <Flex 
                         
                         flex='1 1 40%'
@@ -368,7 +367,7 @@ const Search = () => {
                         minWidth="35%"
                         maxWidth="85%"
                         maxHeight="135%"
-                        overflowY='auto' 
+                         
                         color="gray.300" 
                         position="absolute" 
                         display="flex"
@@ -435,7 +434,7 @@ const Search = () => {
                                                 <Input fontSize= "2vmin" w="90%" color="blackAlpha.900" placeholder='A&W, As It Was' id="trackslist"/>
                                                 </InputGroup>
                                             </PopoverTrigger>
-                                            <PopoverContent w="30vmin" bg="teal.100">
+                                            <PopoverContent w="30vmin" bg="orange.100">
                                                 <PopoverArrow />
                                                 <PopoverCloseButton />
                                                 <PopoverHeader><b>Heads up!</b></PopoverHeader>

@@ -7,11 +7,9 @@ import { BrowserRouter as Router, Routes, Route }
 
 import { Button, ButtonGroup, ChakraProvider, Stack, extendTheme } from '@chakra-ui/react'
 import SignIn from './pages/SignIn';
-import Sidebar from './components/Sidebar';
 import Search from './pages/Search';
 import Logout from './pages/Logout';
-import Dashboard from './pages/Dashboard'
-import { FiLogOut } from 'react-icons/fi';
+import Statistics from './pages/Statistics'
 
 const theme = extendTheme({
   colors: {
@@ -47,7 +45,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<SignIn/>}/>
           <Route path="/search" element={<Search/>}/>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/statistics" element={<Statistics/>}/>
           <Route path="logout" element={<Logout/>}/>
         </Routes>
 

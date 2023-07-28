@@ -17,7 +17,7 @@ import {
     FiSearch,
     FiHelpCircle
 } from 'react-icons/fi'
-import { IoPawOutline } from 'react-icons/io5'
+import { IoStatsChartOutline } from "react-icons/io5";
 import NavItem from './NavItem'
 import axios from 'axios'
 
@@ -38,7 +38,7 @@ export default function Sidebar() {
         })
         setUser(data);
     }
-    fetchUser();       
+    fetchUser();   
     }, []);
     
     return (
@@ -78,8 +78,8 @@ export default function Sidebar() {
                             changeNavSize("small")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiHome} title="Dashboard" href="/dashboard"/>
                 <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
+                <NavItem navSize={navSize} icon={IoStatsChartOutline} title="Statistics" href="/statistics"/>
                 <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
             </Flex>
 
