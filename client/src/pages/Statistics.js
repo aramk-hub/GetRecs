@@ -21,7 +21,8 @@ import {
     Slide, 
     SlideFade, 
     Collapse,
-    useDisclosure
+    useDisclosure,
+    Spacer
 } from '@chakra-ui/react'
 import { useEffect, useState, Fragment,  } from 'react';
 import { BrowserRouter as Router, Routes, Route }
@@ -30,6 +31,7 @@ import { Button, ButtonGroup, ChakraProvider, Stack, extendTheme } from '@chakra
 import Sidebar from '../components/Sidebar';
 import axios from 'axios'
 import background from "./record-image.jpeg";
+import logo from '../spotify-icons-logos/icons/RGB/PNG/Spotify_Icon_RGB_Black.png';
 import './statistics.css'
 
 function Statistics() {
@@ -70,9 +72,33 @@ function Statistics() {
             
         }
 
+        const getTopTracks = async (timerange, limit) => {
+            const{data} = await axios({
+                url: 'https://api.spotify.com/v1/me/top/tracks',
+                params: {
+                    time_range: timerange,
+                    limit: limit,
+                },
+                method: 'get',
+                headers: {
+                    Authorization : `Bearer ${token}`
+                }
+            });
+            if (timerange == "short_term") {
+                setShortTopTracks(data.items);
+            } else if (timerange == "medium_term") {
+                setMediumTopTracks(data.items);
+            }else {
+                setLongTopTracks(data.items);
+            }
+        }
+
         getTopArtists("short_term", 50);    
         getTopArtists("medium_term", 50);
-        getTopArtists("long_term", 50)
+        getTopArtists("long_term", 50);
+        getTopTracks("short_term", 50);    
+        getTopTracks("medium_term", 50);
+        getTopTracks("long_term", 50);
            
     }, []);
 
@@ -80,20 +106,7 @@ function Statistics() {
     
 
     
-    // const getTopTracks = async (timerange, limit) => {
-    //     const{data} = await axios({
-    //         url: 'https://api.spotify.com/v1/me/top/tracks',
-    //         params: {
-    //             time_range: timerange,
-    //             limit: limit,
-    //         },
-    //         method: 'get',
-    //         headers: {
-    //             Authorization : `Bearer ${token}`
-    //         }
-    //     });
-    //     setTopTracks(data);
-    // }
+    
 
     
 
@@ -115,167 +128,193 @@ function Statistics() {
         }
 
         if (topArtists.length > 0) {
-        return (<CardBody>
+        return (<Fragment>
+        <CardBody w="100%" h="100%">
             <Stack divider={<StackDivider />} spacing='2'>
             {topArtists.map((artist, i) => {
-            return (<Box maxHeight='100%' textAlign="left">
-            <HStack>
-                <Text size="lg"><b> {i+1} </b></Text> &nbsp; 
-                <Heading  size='sm' textTransform='uppercase'>
-                <Link fontSize="2vmin" color="purple.500" target='_blank' href={artist.external_urls.spotify}>{artist.name}</Link>
-                </Heading>
+            return (<Box maxHeight="90%">
+                <Link target="_blank" href={artist.external_urls.spotify}>
+                <Image  float="right" height='7vmin' width='7vmin' src={artist.images[0].url}/>
+                </Link>
+                <Heading fontSize="2vmin"><b> {i+1}. </b> &nbsp; <b>{artist.name}</b> &nbsp;<Link top="1" display="inline-flex" position="relative" target="_blank" href={artist.external_urls.spotify}>
+                <Image src={logo} height="2.75vmin" width="2.75vmin"/>
+                </Link></Heading>
                 
-            </HStack>
-            <Image borderRadius="full" float="right" height='12vmin' width='12vmin' align='right' src={artist.images[0].url}/>
-            
+                
+                
             </Box>)})}
-                
-                
+            
             </Stack>
-        </CardBody>)
+            
+        </CardBody>
         
-        
-        
+        </Fragment>) 
+        }
     }
-}
+
+    const renderTracks = (range) => {
+        var topTracks = {}
+        if (range == "short") {
+            topTracks = shortTopTracks;
+        } else if (range == "medium") {
+            topTracks = mediumTopTracks;
+        } else {
+            topTracks = longTopTracks;
+        }
+
+        if (topTracks.length > 0) {
+        return (<Fragment>
+        <CardBody w="100%" h="100%">
+            <Stack divider={<StackDivider />} spacing='2'>
+            {topTracks.map((track, i) => {
+            return (<Box maxHeight="90%">
+                <Link target="_blank" href={track.album.external_urls.spotify}>
+                <Image  float="right" height='7vmin' width='7vmin' src={track.album.images[0].url}/>
+                </Link>
+                <Heading fontSize="2vmin"><b> {i+1}. </b> &nbsp; <b>{track.name}</b> &nbsp;<Link top="1" display="inline-flex" position="relative" target="_blank" href={track.external_urls.spotify}>
+                <Image src={logo} height="2.75vmin" width="2.75vmin"/>
+                </Link></Heading>
+                
+                <Text lineHeight="5vmin" fontSize='2vmin'>
+                    
+                        {track.artists[0].name}                    
+                </Text>
+                
+                
+            </Box>)})}
+            
+            </Stack>
+            
+        </CardBody>
+        
+        </Fragment>) 
+        }
+    }
 
 
   return (
-      <div className='statistics'>
-        
-        
-        
-          
+      <div className='statistics'>   
         <Sidebar/>
-        
-        
         <Flex  
-        
-        h="100vh" 
+        maxH="100%" 
         maxWidth="100%" 
         marginLeft="10%"
         alignItems={"left"} 
         justifyContent={"left"} 
         overflowY="scroll"
-        
         gridColumn="2"
         >
-            <Flex 
-                        
+            <Flex    
                 flex='1 1 40%'
                 gridColumn="2"
                 alignItems={"left"}
                 justifyContent={"center"}
-                w='100vmin'
-
+                maxW='95%'
                 flexDirection="column"
-                p={6}
-                //borderRadius={8}
-                            
+                h="100%"
+                p={4}
+                //borderRadius={8}     
             > 
-           
-           <Tabs w="100vmin" h="100vmin" position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
+
+            
+            <Card flexDirection="column" position="relative" maxW="100%" height="100%">
+            <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
             <TabList>
-                <Tab _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Top Artists</Tab>
-                <Tab  _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Top Tracks</Tab>
-                <Tab _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Top Genres</Tab>
+                <Tab fontSize="2vmin" _hover={{color:"orange.300"}}>Top Artists</Tab>
+                <Tab  fontSize="2vmin" _hover={{color:"orange.300"}}>Top Tracks</Tab>
+                <Tab fontSize="2vmin" _hover={{color:"orange.300"}}>Top Genres</Tab>
             </TabList>
+            
             <TabPanels>
-                <Tabs mt={2} w="100vmin" h="100vmin" position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
+                <TabPanel>
+                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
-                    <Tab onClick={onToggle}  _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>All-Time</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
-                <Fade in={isOpen} unmountOnExit>
-                        <Box
-                        p='40px'
-                        color='white'
-                        mt='4'
-                        bg='teal.500'
-                        rounded='md'
-                        shadow='md'
-                        >
-                        Fade
-                        </Box>
-                    </Fade>
+                
 
                     {/* short term */}
                     <TabPanel>
-                    <Card  overflowY="scroll" position="relative" w="100vmin" >
-                    <CardHeader>
-                        <Heading size='md'>Client Report</Heading>
-                    </CardHeader>
-                    {renderArtists("short")}
-                    
-      
-                    
-                    </Card>
+                        {renderArtists("short")}
                     </TabPanel>
 
                     {/* medium term */}
                     <TabPanel>
-                    <Card position="relative" w="100vmin" >
-                    <CardHeader>
-                        <Heading size='md'>Client Report</Heading>
-                    </CardHeader>
-                    {renderArtists("medium")}
-                    
-                    
-                    </Card>
+                        {renderArtists("medium")}
                     </TabPanel>
 
                     {/* long term */}
                     <TabPanel>
-                    <Card position="relative" w="100vmin" >
-                    <CardHeader>
-                        <Heading size='md'>Client Report</Heading>
-                    </CardHeader>
-                    {renderArtists("long")}
-                    
-                    
-                    </Card>
+                        {renderArtists("long")}
                     </TabPanel>
                 </TabPanels>
                 </Tabs>
+                </TabPanel>
+
+                <TabPanel>
+                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
+                <TabList>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>All-Time</Tab>
+                </TabList>
+                <TabPanels>
+                
+
+                    {/* short term */}
+                    <TabPanel>
+                        {renderTracks("short")}
+                    </TabPanel>
+
+                    {/* medium term */}
+                    <TabPanel>
+                        {renderTracks("medium")}
+                    </TabPanel>
+
+                    {/* long term */}
+                    <TabPanel>
+                        {renderTracks("long")}
+                    </TabPanel>
+                </TabPanels>
+                </Tabs>
+                </TabPanel>
+
                 
                 
 
 
 
-                <TabPanel  w="100vh">
-                <Card>
-                <CardHeader>
-                    <Heading size='md'>Client Report</Heading>
-                </CardHeader>
+                {/* <TabPanel  w="100vh">
+                
 
                 <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
                     {/* {getTopTracks()} */}
-                    </Stack>
+                    {/* </Stack>
                 </CardBody>
-                </Card>
+                
                 </TabPanel>
 
                 <TabPanel  w="100vh">
-                <Card>
-                <CardHeader>
-                    <Heading size='md'>Client Report</Heading>
-                </CardHeader>
+                
 
                 <CardBody>
                     <Stack divider={<StackDivider />} spacing='2'>
                     
                     </Stack>
                 </CardBody>
-                </Card>
-                </TabPanel>
+                
+                </TabPanel> */}
 
 
-
+                
             </TabPanels>
             </Tabs>
+            </Card>
+            
             </Flex>
                 
             
