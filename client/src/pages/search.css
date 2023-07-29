@@ -1,8 +1,6 @@
 .search {
     display: grid;
     grid-template-columns: 140px 1fr;
-    /* background-image: url("./record-image.jpeg");
-    background-size: cover;
-    background-attachment: scroll;
-    border-radius: 10px; */
+    background: rgb(108,213,255);
+    background: linear-gradient(0deg, rgba(108,213,255,1) 0%, rgba(255,237,166,1) 100%); 
   }

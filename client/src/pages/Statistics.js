@@ -335,9 +335,9 @@ function Statistics() {
             <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
                 
             <TabList>
-                <Tab fontSize="2vmin" _hover={{color:"orange.300"}}>Top Artists</Tab>
-                <Tab  fontSize="2vmin" _hover={{color:"orange.300"}}>Top Tracks</Tab>
-                <Tab fontSize="2vmin" _hover={{color:"orange.300"}}>Top Genres</Tab>
+                <Tab fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Artists</Tab>
+                <Tab  fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Tracks</Tab>
+                <Tab fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Genres</Tab>
             </TabList>
             <div className="transition"></div>
             
@@ -347,9 +347,9 @@ function Statistics() {
                 <TabList>
                     
 
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>All-Time</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
@@ -377,9 +377,9 @@ function Statistics() {
                 <TabPanel>
                 <Tabs isFitted position="relative" variant='soft-rounded' size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>All-Time</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
@@ -405,9 +405,9 @@ function Statistics() {
                 <TabPanel>
                 <Tabs isFitted position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", color:"blackAlpha.800"}}>All-Time</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 

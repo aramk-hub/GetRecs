@@ -1,8 +1,8 @@
 .statistics {
     display: grid;
     grid-template-columns: 140px 1fr;
-    background: linear-gradient(#e66465, #9198e5);
-    background-size: 100% 100%;
+    background: rgb(108,213,255);
+    background: linear-gradient(0deg, rgba(108,213,255,1) 0%, rgba(255,237,166,1) 100%);
 }
 
 .example-style {
