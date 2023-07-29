@@ -1,5 +1,7 @@
 import React from 'react'
 import {
+    Container, 
+    SimpleGrid,
     HStack,
     Image, 
     Link,
@@ -21,6 +23,7 @@ import {
     Slide, 
     SlideFade, 
     Collapse,
+    Stat,
     useDisclosure,
     Spacer
 } from '@chakra-ui/react'
@@ -39,13 +42,15 @@ function Statistics() {
     const { isOpen, onToggle } = useDisclosure()
 
     const token = window.localStorage.getItem("token");
-    const [user, setUser] = useState(null);
     const [shortTopArtists, setShortTopArtists] = useState({});
     const [mediumTopArtists, setMediumTopArtists] = useState({});
     const [longTopArtists, setLongTopArtists] = useState({});
     const [shortTopTracks, setShortTopTracks] = useState({});
     const [mediumTopTracks, setMediumTopTracks] = useState({});
     const [longTopTracks, setLongTopTracks] = useState({});    
+    const [shortTopGenres, setShortTopGenres] = useState({});
+    const [mediumTopGenres, setMediumTopGenres] = useState({});
+    const [longTopGenres, setLongTopGenres] = useState({});  
     // const [term, setTerm] = useState("short");
 
     useEffect(() => {
@@ -93,29 +98,53 @@ function Statistics() {
             }
         }
 
+        const getTopGenres = (range) => {
+            if (shortTopArtists.length > 0) {
+                var topArtists = {};
+                if (range == "short_term") {
+                    topArtists = shortTopArtists;
+                }else if (range == "medium_term") {
+                    topArtists = mediumTopArtists;
+                }else {
+                    topArtists = longTopArtists;
+                }
+                var mp = new Map();
+
+                topArtists.forEach(artist => {
+                    for (let i = 0; i < artist.genres.length; i++) {
+                        var genre = artist.genres[i]
+                        if (mp.has(genre)) {
+                            mp.set(genre, mp.get(genre) + 1)
+                        } else {
+                            mp.set(genre, 1)
+                        }
+                    }
+                });
+
+
+                const mpsorted = new Map([...mp.entries()].sort((a,b) => b[1] - a[1]))
+
+                if (range == "short_term") {
+                    setShortTopGenres(mpsorted);
+                }else if (range == "medium_term") {
+                    setMediumTopGenres(mpsorted);
+                }else {
+                    setLongTopGenres(mpsorted);
+                }
+            }
+        }
+
         getTopArtists("short_term", 50);    
         getTopArtists("medium_term", 50);
         getTopArtists("long_term", 50);
         getTopTracks("short_term", 50);    
         getTopTracks("medium_term", 50);
         getTopTracks("long_term", 50);
+        getTopGenres("short_term");    
+        getTopGenres("medium_term");
+        getTopGenres("long_term");
            
     }, []);
-
-
-    
-
-    
-    
-
-    
-
-    
-
-    // const getTopGenres = (topArtists) = {
-
-    // }
-
 
     const renderArtists = (range) => {
         var topArtists = {}
@@ -189,6 +218,67 @@ function Statistics() {
         
         </Fragment>) 
         }
+    }
+
+    const renderGenres = (range) => {
+        var topGenres = {}
+        if (range == "short") {
+            topGenres = shortTopGenres;
+        } else if (range == "medium") {
+            topGenres = mediumTopGenres;
+        } else {
+            topGenres = longTopGenres;
+        }
+        let sum = 0;
+        if (topGenres.size > 0) {
+            
+            for (let key in topGenres) {
+            sum += topGenres[key];
+            }
+        }
+        // const stats = [
+        //     { label: 'Favorite Genre', value: Array.from(topGenres.keys())[0].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ') },
+        //     { label: 'Frequency Picked', value: topGenres.get(Array.from(topGenres.keys())[0]) / sum * 100 },
+        //     // { label: 'Avg. Click Rate', value: '12.87%' },
+        //   ]
+          
+          
+        // {<Box as="section" py={{ base: '4', md: '8' }}>
+        //     <Container>
+        //     <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: '5', md: '6' }}>
+        //         {stats.map(({ label, value }) => (
+        //         <Stat key={label} label={label} value={value} />
+        //         ))}
+        //     </SimpleGrid>
+        //     </Container>
+        // </Box>}
+          
+
+
+        
+        var count = 0;
+        if (topGenres.size > 0) {
+            return (<Fragment>
+            <CardBody w="100%" h="100%">
+                <Stack divider={<StackDivider />} spacing='2'>
+                {Array.from(topGenres, ([key, value]) => {
+                    if (count < 10) {
+                    count++;
+                return (<Box maxHeight="90%">
+                    {/* <Link target="_blank" href={artist.external_urls.spotify}>
+                    <Image  float="right" height='7vmin' width='7vmin' src={artist.images[0].url}/>
+                    </Link> */}
+                    <Heading float="right" fontSize="2vmin">Frequency of the genre: {value}%</Heading>
+                    <Heading fontSize="2vmin"><b> {count}. </b> &nbsp; 
+                    {key = key.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')}
+                     &nbsp;</Heading> 
+                    
+                    
+                </Box>)}})}
+                </Stack>
+            </CardBody>
+            </Fragment>)}
+        
     }
 
 
@@ -277,6 +367,34 @@ function Statistics() {
                     {/* long term */}
                     <TabPanel>
                         {renderTracks("long")}
+                    </TabPanel>
+                </TabPanels>
+                </Tabs>
+                </TabPanel>
+
+                <TabPanel>
+                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
+                <TabList>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
+                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>All-Time</Tab>
+                </TabList>
+                <TabPanels>
+                
+
+                    {/* short term */}
+                    <TabPanel>
+                        {renderGenres("short")}
+                    </TabPanel>
+
+                    {/* medium term */}
+                    <TabPanel>
+                        {renderGenres("medium")}
+                    </TabPanel>
+
+                    {/* long term */}
+                    <TabPanel>
+                        {renderGenres("long")}
                     </TabPanel>
                 </TabPanels>
                 </Tabs>
