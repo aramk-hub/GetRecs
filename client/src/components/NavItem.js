@@ -29,6 +29,7 @@ export default function NavItem({ icon, title, active, navSize, href }) {
                 
                 <Link
                     as={RouterLink}
+                    
                     to={href}
                     backgroundColor={active && "purple.500"}
                     p={3}

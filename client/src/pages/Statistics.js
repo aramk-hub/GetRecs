@@ -99,7 +99,7 @@ function Statistics() {
         }
 
         const getTopGenres = (range) => {
-            if (shortTopArtists.length > 0) {
+            
                 var topArtists = {};
                 if (range == "short_term") {
                     topArtists = shortTopArtists;
@@ -108,6 +108,7 @@ function Statistics() {
                 }else {
                     topArtists = longTopArtists;
                 }
+                if (!isEmpty(topArtists)) {
                 var mp = new Map();
 
                 topArtists.forEach(artist => {
@@ -146,6 +147,16 @@ function Statistics() {
            
     }, []);
 
+    function isEmpty(obj) {
+        for (const prop in obj) {
+          if (Object.hasOwn(obj, prop)) {
+            return false;
+          }
+        }
+      
+        return true;
+      }
+
     const renderArtists = (range) => {
         var topArtists = {}
         if (range == "short") {
@@ -156,7 +167,7 @@ function Statistics() {
             topArtists = longTopArtists;
         }
 
-        if (topArtists.length > 0) {
+        if (!isEmpty(topArtists)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
             <Stack divider={<StackDivider />} spacing='2'>
@@ -168,6 +179,7 @@ function Statistics() {
                 <Heading fontSize="2vmin"><b> {i+1}. </b> &nbsp; <b>{artist.name}</b> &nbsp;<Link top="1" display="inline-flex" position="relative" target="_blank" href={artist.external_urls.spotify}>
                 <Image src={logo} height="2.75vmin" width="2.75vmin"/>
                 </Link></Heading>
+
                 
                 
                 
@@ -191,7 +203,7 @@ function Statistics() {
             topTracks = longTopTracks;
         }
 
-        if (topTracks.length > 0) {
+        if (!isEmpty(topTracks)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
             <Stack divider={<StackDivider />} spacing='2'>
@@ -221,6 +233,15 @@ function Statistics() {
     }
 
     const renderGenres = (range) => {
+        var topTracks = {}
+        if (range == "short") {
+            topTracks = shortTopTracks;
+        } else if (range == "medium") {
+            topTracks = mediumTopTracks;
+        } else {
+            topTracks = longTopTracks;
+        }
+
         var topGenres = {}
         if (range == "short") {
             topGenres = shortTopGenres;
@@ -229,35 +250,11 @@ function Statistics() {
         } else {
             topGenres = longTopGenres;
         }
-        let sum = 0;
-        if (topGenres.size > 0) {
-            
-            for (let key in topGenres) {
-            sum += topGenres[key];
-            }
-        }
-        // const stats = [
-        //     { label: 'Favorite Genre', value: Array.from(topGenres.keys())[0].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ') },
-        //     { label: 'Frequency Picked', value: topGenres.get(Array.from(topGenres.keys())[0]) / sum * 100 },
-        //     // { label: 'Avg. Click Rate', value: '12.87%' },
-        //   ]
-          
-          
-        // {<Box as="section" py={{ base: '4', md: '8' }}>
-        //     <Container>
-        //     <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: '5', md: '6' }}>
-        //         {stats.map(({ label, value }) => (
-        //         <Stat key={label} label={label} value={value} />
-        //         ))}
-        //     </SimpleGrid>
-        //     </Container>
-        // </Box>}
-          
 
+        console.log(topGenres)
 
-        
-        var count = 0;
-        if (topGenres.size > 0) {
+        if (!isEmpty(topGenres)) {
+            var count = 0;
             return (<Fragment>
             <CardBody w="100%" h="100%">
                 <Stack divider={<StackDivider />} spacing='2'>
@@ -278,9 +275,46 @@ function Statistics() {
                 </Box>)}})}
                 </Stack>
             </CardBody>
-            </Fragment>)}
+            </Fragment>)} 
+        }
+        // var topGenres = {}
+        // if (range == "short") {
+        //     topGenres = shortTopGenres;
+        // } else if (range == "medium") {
+        //     topGenres = mediumTopGenres;
+        // } else {
+        //     topGenres = longTopGenres;
+        // }
+        // // let sum = 0;
+        // // if (topGenres.size > 0) {
+            
+        // //     for (let key in topGenres) {
+        // //     sum += topGenres[key];
+        // //     }
+        // // }
+        // // const stats = [
+        // //     { label: 'Favorite Genre', value: Array.from(topGenres.keys())[0].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ') },
+        // //     { label: 'Frequency Picked', value: topGenres.get(Array.from(topGenres.keys())[0]) / sum * 100 },
+        // //     // { label: 'Avg. Click Rate', value: '12.87%' },
+        // //   ]
+          
+          
+        // // {<Box as="section" py={{ base: '4', md: '8' }}>
+        // //     <Container>
+        // //     <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: '5', md: '6' }}>
+        // //         {stats.map(({ label, value }) => (
+        // //         <Stat key={label} label={label} value={value} />
+        // //         ))}
+        // //     </SimpleGrid>
+        // //     </Container>
+        // // </Box>}
+          
+
+
         
-    }
+        
+        
+    
 
 
   return (
