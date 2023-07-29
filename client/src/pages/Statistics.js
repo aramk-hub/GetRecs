@@ -264,6 +264,7 @@ function Statistics() {
                 {Array.from(topGenres, ([key, value]) => {
                     if (count < 10) {
                     count++;
+                    
                 return (<Box maxHeight="90%">
                     {/* <Link target="_blank" href={artist.external_urls.spotify}>
                     <Image  float="right" height='7vmin' width='7vmin' src={artist.images[0].url}/>
