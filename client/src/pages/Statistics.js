@@ -48,9 +48,9 @@ function Statistics() {
     const [shortTopTracks, setShortTopTracks] = useState({});
     const [mediumTopTracks, setMediumTopTracks] = useState({});
     const [longTopTracks, setLongTopTracks] = useState({});    
-    const [shortTopGenres, setShortTopGenres] = useState({});
-    const [mediumTopGenres, setMediumTopGenres] = useState({});
-    const [longTopGenres, setLongTopGenres] = useState({});  
+    // const [shortTopGenres, setShortTopGenres] = useState({});
+    // const [mediumTopGenres, setMediumTopGenres] = useState({});
+    // const [longTopGenres, setLongTopGenres] = useState({});  
     // const [term, setTerm] = useState("short");
 
     useEffect(() => {
@@ -98,42 +98,7 @@ function Statistics() {
             }
         }
 
-        const getTopGenres = (range) => {
-            
-                var topArtists = {};
-                if (range == "short_term") {
-                    topArtists = shortTopArtists;
-                }else if (range == "medium_term") {
-                    topArtists = mediumTopArtists;
-                }else {
-                    topArtists = longTopArtists;
-                }
-                if (!isEmpty(topArtists)) {
-                var mp = new Map();
-
-                topArtists.forEach(artist => {
-                    for (let i = 0; i < artist.genres.length; i++) {
-                        var genre = artist.genres[i]
-                        if (mp.has(genre)) {
-                            mp.set(genre, mp.get(genre) + 1)
-                        } else {
-                            mp.set(genre, 1)
-                        }
-                    }
-                });
-
-
-                const mpsorted = new Map([...mp.entries()].sort((a,b) => b[1] - a[1]))
-
-                if (range == "short_term") {
-                    setShortTopGenres(mpsorted);
-                }else if (range == "medium_term") {
-                    setMediumTopGenres(mpsorted);
-                }else {
-                    setLongTopGenres(mpsorted);
-                }
-            }
-        }
+        
 
         getTopArtists("short_term", 50);    
         getTopArtists("medium_term", 50);
@@ -141,9 +106,7 @@ function Statistics() {
         getTopTracks("short_term", 50);    
         getTopTracks("medium_term", 50);
         getTopTracks("long_term", 50);
-        getTopGenres("short_term");    
-        getTopGenres("medium_term");
-        getTopGenres("long_term");
+        
            
     }, []);
 
@@ -155,7 +118,38 @@ function Statistics() {
         }
       
         return true;
-      }
+    }
+
+    const getTopGenres = (range) => {
+            
+        var topArtists = {};
+        if (range == "short_term") {
+            topArtists = shortTopArtists;
+        }else if (range == "medium_term") {
+            topArtists = mediumTopArtists;
+        }else {
+            topArtists = longTopArtists;
+        }
+        if (!isEmpty(topArtists)) {
+        var mp = new Map();
+
+        topArtists.forEach(artist => {
+            for (let i = 0; i < artist.genres.length; i++) {
+                var genre = artist.genres[i]
+                if (mp.has(genre)) {
+                    mp.set(genre, mp.get(genre) + 1)
+                } else {
+                    mp.set(genre, 1)
+                }
+            }
+        });
+
+
+        const mpsorted = new Map([...mp.entries()].sort((a,b) => b[1] - a[1]))
+
+        return mpsorted
+    }
+}
 
     const renderArtists = (range) => {
         var topArtists = {}
@@ -166,11 +160,11 @@ function Statistics() {
         } else {
             topArtists = longTopArtists;
         }
-
+        console.log("renderArtists: " + isEmpty(topArtists))
         if (!isEmpty(topArtists)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
-            <Stack divider={<StackDivider />} spacing='2'>
+            <Stack divider={<StackDivider opacity="10%"/>} spacing='2'>
             {topArtists.map((artist, i) => {
             return (<Box maxHeight="90%">
                 <Link target="_blank" href={artist.external_urls.spotify}>
@@ -178,17 +172,10 @@ function Statistics() {
                 </Link>
                 <Heading fontSize="2vmin"><b> {i+1}. </b> &nbsp; <b>{artist.name}</b> &nbsp;<Link top="1" display="inline-flex" position="relative" target="_blank" href={artist.external_urls.spotify}>
                 <Image src={logo} height="2.75vmin" width="2.75vmin"/>
-                </Link></Heading>
-
-                
-                
-                
+                </Link></Heading>   
             </Box>)})}
-            
             </Stack>
-            
         </CardBody>
-        
         </Fragment>) 
         }
     }
@@ -202,11 +189,11 @@ function Statistics() {
         } else {
             topTracks = longTopTracks;
         }
-
+        console.log("renderTracks: " + isEmpty(topTracks))
         if (!isEmpty(topTracks)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
-            <Stack divider={<StackDivider />} spacing='2'>
+            <Stack divider={<StackDivider opacity="10%" />} spacing='2'>
             {topTracks.map((track, i) => {
             return (<Box maxHeight="90%">
                 <Link target="_blank" href={track.album.external_urls.spotify}>
@@ -244,20 +231,21 @@ function Statistics() {
 
         var topGenres = {}
         if (range == "short") {
-            topGenres = shortTopGenres;
+            topGenres = getTopGenres("short_term");;
         } else if (range == "medium") {
-            topGenres = mediumTopGenres;
+            topGenres = getTopGenres("medium_term");;
         } else {
-            topGenres = longTopGenres;
+            topGenres = getTopGenres("long_term");;
         }
 
+        console.log("renderGenres: " + isEmpty(topGenres))
         console.log(topGenres)
-
-        if (!isEmpty(topGenres)) {
+        if (topTracks && topGenres) {
+           
             var count = 0;
             return (<Fragment>
             <CardBody w="100%" h="100%">
-                <Stack divider={<StackDivider />} spacing='2'>
+                <Stack divider={<StackDivider opacity="10%"/>} spacing='2'>
                 {Array.from(topGenres, ([key, value]) => {
                     if (count < 10) {
                     count++;
@@ -266,7 +254,7 @@ function Statistics() {
                     {/* <Link target="_blank" href={artist.external_urls.spotify}>
                     <Image  float="right" height='7vmin' width='7vmin' src={artist.images[0].url}/>
                     </Link> */}
-                    <Heading float="right" fontSize="2vmin">Frequency of the genre: {value}%</Heading>
+                    <Heading float="right" fontSize="2vmin"> {value}%</Heading>
                     <Heading fontSize="2vmin"><b> {count}. </b> &nbsp; 
                     {key = key.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')}
                      &nbsp;</Heading> 
@@ -318,9 +306,9 @@ function Statistics() {
 
 
   return (
-      <div className='statistics'>   
+      <div className='statistics'>
         <Sidebar/>
-        <Flex  
+        <Flex
         maxH="100%" 
         maxWidth="100%" 
         marginLeft="10%"
@@ -342,7 +330,7 @@ function Statistics() {
             > 
 
             
-            <Card flexDirection="column" position="relative" maxW="100%" height="100%">
+            <Card style={{ border: "none", boxShadow: "none" }} background="rgba(204, 204, 204, 0.0)" flexDirection="column" position="relative" maxW="100%" height="100%">
             <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
             <TabList>
                 <Tab fontSize="2vmin" _hover={{color:"orange.300"}}>Top Artists</Tab>
@@ -352,7 +340,7 @@ function Statistics() {
             
             <TabPanels>
                 <TabPanel>
-                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
+                <Tabs isFitted position="relative" variant='soft-rounded' size='md'>
                 <TabList>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
@@ -380,7 +368,7 @@ function Statistics() {
                 </TabPanel>
 
                 <TabPanel>
-                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
+                <Tabs isFitted position="relative" variant='soft-rounded' size='md'>
                 <TabList>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
@@ -408,9 +396,9 @@ function Statistics() {
                 </TabPanel>
 
                 <TabPanel>
-                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
+                <Tabs isFitted position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
+                    <Tab fontStyle="normal" onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last Month</Tab>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>Last 6 Months</Tab>
                     <Tab onClick={onToggle} fontSize="2vmin" _hover={{opacity:"0.75", background:"orange.100",color:"blackAlpha.800"}}>All-Time</Tab>
                 </TabList>

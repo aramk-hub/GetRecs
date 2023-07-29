@@ -41,12 +41,12 @@ export default function NavItem({ icon, title, active, navSize, href }) {
                 >
                     <MenuButton maxW="75%" onClick={handleLinkClick}>
                         <Flex>
-                            <Icon as={icon} fontSize="2.5vmin" hover="purple.100" color={active ? "purple.100" : "gray.400"} />
+                            <Icon as={icon} fontSize="2.5vmin" hover="purple.100" color={active ? "white" : "white"} />
                             <Text 
                             fontSize="2vmin" 
                             ml={3} 
                             whileHover="purple.100" 
-                            color={active ? "purple.100" : "gray.400"} 
+                            color={active ? "purple.100" : "white"} 
                             display={navSize == "small" ? "none" : "flex"}>
                                 {title}
                             </Text>
