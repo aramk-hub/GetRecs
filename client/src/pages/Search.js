@@ -277,14 +277,14 @@ const Search = () => {
         return (
             <Fragment>
             <Card border="none"
-                        boxShadow="lg"
+                        boxShadow="none"
                         background="rgba(204, 204, 204, 0.0)" overflowY='scroll' display="block" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%">
             <CardHeader maxHeight="60px">
                 <Heading fontSize='3vmin' align="center">Recommendations</Heading>
             </CardHeader>
 
             <CardBody overflowY="scroll">
-                <Stack divider={<StackDivider />} spacing='2'>
+                <Stack divider={<StackDivider opacity="25%"/>} spacing='2'>
                     {recs.map((track, i) => {
                         return (
                             <Box maxHeight='100%'>
@@ -365,11 +365,11 @@ const Search = () => {
                 flex='1 1 40%'
                 gridColumn="2"
                 alignItems={"left"}
-                justifyContent={"center"}
+                justifyContent={"top"}
                 float="left"
                 maxW='95%'
                 flexDirection="column"
-                maxHeight="25%"
+                maxHeight="100%"
                 p={4}
                 //borderRadius={8}     
             > 
@@ -493,6 +493,7 @@ const Search = () => {
                         
                         h="100%"
                         p={6}
+                        overflowY="scroll"
                         
                         //borderRadius={8}
                             

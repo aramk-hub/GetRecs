@@ -335,21 +335,21 @@ function Statistics() {
             <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
                 
             <TabList>
-                <Tab fontSize="2vmin" color="black" _hover={{color: "blue.200" }}>Top Artists</Tab>
-                <Tab  fontSize="2vmin" color="black" _hover={{color: "blue.200" }}>Top Tracks</Tab>
-                <Tab fontSize="2vmin" color="black"_hover={{color: "blue.200" }}>Top Genres</Tab>
+                <Tab fontSize="2vmin" color="black" _hover={{color: "teal.300" }}>Top Artists</Tab>
+                <Tab fontSize="2vmin" color="black" _hover={{color: "teal.300" }}>Top Tracks</Tab>
+                <Tab fontSize="2vmin" color="black"_hover={{color: "teal.300" }}>Top Genres</Tab>
             </TabList>
             <div className="transition"></div>
             
             <TabPanels>
                 <TabPanel>
-                <Tabs style={{transition:"margin 0.5s ease"}} isFitted position="relative" variant='soft-rounded' size='md'>
+                <Tabs style={{transition:"margin 0.5s ease"}} isFitted position="relative" variant='enclosed' size='md'>
                 <TabList>
                     
 
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 4 Weeks</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 6 Months</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
@@ -381,11 +381,11 @@ function Statistics() {
                 </TabPanel>
 
                 <TabPanel>
-                <Tabs isFitted position="relative" variant='soft-rounded' size='md'>
+                <Tabs isFitted position="relative" variant='enclosed' size='md'>
                 <TabList>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 4 Weeks</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 6 Months</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
@@ -406,7 +406,7 @@ function Statistics() {
 
                     {/* long term */}
                     <TabPanel>
-                    <div className='example-style'>
+                        <div className='example-style'>
                         {renderTracks("long")}
                         </div>
                     </TabPanel>
@@ -415,28 +415,34 @@ function Statistics() {
                 </TabPanel>
 
                 <TabPanel>
-                <Tabs isFitted position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
+                <Tabs isFitted position="relative" variant='enclosed' colorScheme="purple" size='md'>
                 <TabList>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 4 Weeks</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 6 Months</Tab>
+                    <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
 
                     {/* short term */}
                     <TabPanel>
+                        <div className='example-style'>
                         {renderGenres("short")}
+                        </div>
                     </TabPanel>
 
                     {/* medium term */}
                     <TabPanel>
+                        <div className='example-style'>
                         {renderGenres("medium")}
+                        </div>
                     </TabPanel>
 
                     {/* long term */}
                     <TabPanel>
+                        <div className='example-style'>
                         {renderGenres("long")}
+                        </div>
                     </TabPanel>
                 </TabPanels>
                 
