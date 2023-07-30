@@ -60,7 +60,7 @@ import './search.css'
 import '../theme.js'
 import axios from 'axios';
 import background from "./record-image.jpeg";
-
+import logo from '../spotify-icons-logos/icons/RGB/PNG/Spotify_Icon_RGB_Black.png';
  
 const Search = () => {
 
@@ -278,7 +278,7 @@ const Search = () => {
             <Fragment>
             <Card border="none"
                         boxShadow="none"
-                        background="rgba(204, 204, 204, 0.0)" overflowY='scroll' display="block" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%">
+                        background="rgba(204, 204, 204, 0.0)" display="block"  minWidth="35%" width="75%" maxHeight="100%">
             <CardHeader maxHeight="60px">
                 <Heading fontSize='3vmin' align="center">Recommendations</Heading>
             </CardHeader>
@@ -292,7 +292,9 @@ const Search = () => {
                                 <Image float="right" height='7vmin' width='7vmin' align='right' src={track.album.images[0].url}/>
                                 {/* </Link> */}
                                 <Heading size='xs' textTransform='uppercase'>
-                                <Link fontSize="2vmin" color="purple.500" target='_blank' href={track.external_urls.spotify}>{track.name}</Link>
+                                {track.name}
+                                 &nbsp; <Link fontSize="2vmin" color="purple.500" position="relative" display="inline-block" target='_blank' href={track.external_urls.spotify}>
+                                <Image src={logo} height="2.75vmin" width="2.75vmin"/></Link>
                                 </Heading>
                                 <Text pt='2' fontSize='2vmin'>
                                     by <Link color="purple.500" target='_blank' href={track.artists[0].external_urls.spotify}>
@@ -352,12 +354,11 @@ const Search = () => {
                 <Sidebar />
 
                 <Flex
-        maxH="100%" 
+         
         maxWidth="100%" 
         marginLeft="0%"
         alignItems={"left"} 
         justifyContent={"left"} 
-        overflowY="scroll"
         gridColumn="2"
         >
             <VStack>
@@ -375,7 +376,7 @@ const Search = () => {
             > 
 
             
-            <Card style={{ border: "none", boxShadow: "none" }} background="rgba(204, 204, 204, 0.0)" flexDirection="column" position="relative" maxW="100%" maxHeight="20%">
+            <Card style={{ border: "none", boxShadow: "none" }} background="rgba(204, 204, 204, 0.0)" flexDirection="column" position="relative" maxW="100%" maxHeight="50%">
                         
                               
                         <CardHeader marginLeft='auto' marginRight='auto'>
@@ -397,7 +398,7 @@ const Search = () => {
                                 <Stack
                                     
                                     alignItems="center"
-                                    
+                                    ml="15%"
                                     direction="row"
                                     flexWrap="wrap"
                                     spacing={4}
@@ -487,13 +488,11 @@ const Search = () => {
                         alignItems={"center"}
                         justifyContent={"center"}
                         w='100%'
-                        display="inline-block"
+                        display="flex"
                         position="relative"
                         flexDirection="column"
-                        
                         h="100%"
                         p={6}
-                        overflowY="scroll"
                         
                         //borderRadius={8}
                             

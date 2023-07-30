@@ -160,7 +160,6 @@ function Statistics() {
         } else {
             topArtists = longTopArtists;
         }
-        console.log("renderArtists: " + isEmpty(topArtists))
         if (!isEmpty(topArtists)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
@@ -189,7 +188,6 @@ function Statistics() {
         } else {
             topTracks = longTopTracks;
         }
-        console.log("renderTracks: " + isEmpty(topTracks))
         if (!isEmpty(topTracks)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
@@ -238,8 +236,6 @@ function Statistics() {
             topGenres = getTopGenres("long_term");;
         }
 
-        console.log("renderGenres: " + isEmpty(topGenres))
-        console.log(topGenres)
         if (topTracks && topGenres) {
            
             var count = 0;
