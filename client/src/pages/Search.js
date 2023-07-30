@@ -276,7 +276,9 @@ const Search = () => {
         if (searched) {
         return (
             <Fragment>
-            <Card overflowY='scroll' position="sticky" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%" bg="gray.50">
+            <Card border="none"
+                        boxShadow="lg"
+                        background="rgba(204, 204, 204, 0.0)" overflowY='scroll' display="block" minWidth="35%" maxWidth="100%" minHeight="50%" maxHeight="100%">
             <CardHeader maxHeight="60px">
                 <Heading fontSize='3vmin' align="center">Recommendations</Heading>
             </CardHeader>
@@ -349,34 +351,31 @@ const Search = () => {
             <div className="search" margin="0 auto" overflow-y="auto" >
                 <Sidebar />
 
-                <Flex position="relative" h="100vh" maxWidth="90%" alignItems={"center"} justifyContent={"center"} gridColumn="2">
-                    <Flex 
-                        
-                        flex='1 1 40%'
-                        gridColumn="2"
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        w='100%'
-                        flexDirection="column"
-                        p={6}
-                        //borderRadius={8}
-                            
-                    > 
-                    <Card  
-                    
-                        minWidth="35%"
-                        maxWidth="85%"
-                        maxHeight="135%"
-                         
-                        color="gray.300" 
-                        position="absolute" 
-                        display="flex"
-                        top="5%" 
-                        align="center" 
-                        p={6} 
-                        boxShadow="lg" 
-                        
-                    >
+                <Flex
+        maxH="100%" 
+        maxWidth="100%" 
+        marginLeft="0%"
+        alignItems={"left"} 
+        justifyContent={"left"} 
+        overflowY="scroll"
+        gridColumn="2"
+        >
+            <VStack>
+            <Flex    
+                flex='1 1 40%'
+                gridColumn="2"
+                alignItems={"left"}
+                justifyContent={"center"}
+                float="left"
+                maxW='95%'
+                flexDirection="column"
+                maxHeight="25%"
+                p={4}
+                //borderRadius={8}     
+            > 
+
+            
+            <Card style={{ border: "none", boxShadow: "none" }} background="rgba(204, 204, 204, 0.0)" flexDirection="column" position="relative" maxW="100%" maxHeight="20%">
                         
                               
                         <CardHeader marginLeft='auto' marginRight='auto'>
@@ -398,7 +397,7 @@ const Search = () => {
                                 <Stack
                                     
                                     alignItems="center"
-                                    float='left'
+                                    
                                     direction="row"
                                     flexWrap="wrap"
                                     spacing={4}
@@ -471,7 +470,7 @@ const Search = () => {
                                 </FormControl>                                
                                 </Fragment>
                             </CardBody>
-                            {renderRecs()} 
+                            
                             {/* {playlistCreated ? 
                                 <div>
                                     
@@ -479,8 +478,30 @@ const Search = () => {
                              : null} */}
                              
                     </Card>
+                    
                     </Flex>
+                    <Flex 
+                        
+                        flex='1 1 40%'
+                        gridColumn="1"
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        w='100%'
+                        display="inline-block"
+                        position="relative"
+                        flexDirection="column"
+                        
+                        h="100%"
+                        p={6}
+                        
+                        //borderRadius={8}
+                            
+                    > 
+                    {renderRecs()}
+                    </Flex>
+                    </VStack>
                 </Flex>
+                
             </div>
         </div>
     );

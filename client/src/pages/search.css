@@ -4,3 +4,13 @@
     background: rgb(108,213,255);
     background: linear-gradient(0deg, rgba(108,213,255,1) 0%, rgba(255,237,166,1) 100%); 
   }
+
+#recs {
+  transition: 1s;
+}
+
+.wrapper:hover #slide {
+    transition: 1s;
+    bottom: 0; /* SET THE SLIDER TO BE 0 */
+}
+

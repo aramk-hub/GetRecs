@@ -3,10 +3,11 @@
     grid-template-columns: 140px 1fr;
     background: rgb(108,213,255);
     background: linear-gradient(0deg, rgba(108,213,255,1) 0%, rgba(255,237,166,1) 100%);
+    animation: fade-in 2.5s;
 }
 
 .example-style {
-  animation: fade-in 3s;
+  animation: fade-in 0.5s;
 }
 
 @keyframes fade-in {

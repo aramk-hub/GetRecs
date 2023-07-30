@@ -164,7 +164,7 @@ function Statistics() {
         if (!isEmpty(topArtists)) {
         return (<Fragment>
         <CardBody w="100%" h="100%">
-            <Stack divider={<StackDivider opacity="10%"/>} spacing='2'>
+            <Stack divider={<StackDivider opacity="%"/>} spacing='2'>
             {topArtists.map((artist, i) => {
             return (<Box maxHeight="90%">
                 <Link target="_blank" href={artist.external_urls.spotify}>
@@ -335,9 +335,9 @@ function Statistics() {
             <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
                 
             <TabList>
-                <Tab fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Artists</Tab>
-                <Tab  fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Tracks</Tab>
-                <Tab fontSize="2vmin" _selected={{colorScheme: "blue"}}_hover={{colorScheme: "blue" }}>Top Genres</Tab>
+                <Tab fontSize="2vmin" color="black" _hover={{color: "blue.200" }}>Top Artists</Tab>
+                <Tab  fontSize="2vmin" color="black" _hover={{color: "blue.200" }}>Top Tracks</Tab>
+                <Tab fontSize="2vmin" color="black"_hover={{color: "blue.200" }}>Top Genres</Tab>
             </TabList>
             <div className="transition"></div>
             
@@ -347,9 +347,9 @@ function Statistics() {
                 <TabList>
                     
 
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
@@ -357,17 +357,23 @@ function Statistics() {
                     {/* short term */}
                     
                     <TabPanel >
+                        <div className='example-style'>
                         {renderArtists("short")}
+                        </div>
                     </TabPanel>
 
                     {/* medium term */}
                     <TabPanel >
+                    <div className='example-style'>
                         {renderArtists("medium")}
+                        </div>
                     </TabPanel>
 
                     {/* long term */}
                     <TabPanel >
+                    <div className='example-style'>
                         {renderArtists("long")}
+                        </div>
                     </TabPanel>
                     
                 </TabPanels>
@@ -377,26 +383,32 @@ function Statistics() {
                 <TabPanel>
                 <Tabs isFitted position="relative" variant='soft-rounded' size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
 
                     {/* short term */}
                     <TabPanel>
+                        <div className='example-style'>
                         {renderTracks("short")}
+                        </div>
                     </TabPanel>
 
                     {/* medium term */}
                     <TabPanel>
+                        <div className='example-style'>
                         {renderTracks("medium")}
+                        </div>
                     </TabPanel>
 
                     {/* long term */}
                     <TabPanel>
+                    <div className='example-style'>
                         {renderTracks("long")}
+                        </div>
                     </TabPanel>
                 </TabPanels>
                 </Tabs>
@@ -405,9 +417,9 @@ function Statistics() {
                 <TabPanel>
                 <Tabs isFitted position="relative" variant='soft-rounded' colorScheme="purple" size='md'>
                 <TabList>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
-                    <Tab onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last Month</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>Last 6 Months</Tab>
+                    <Tab color="black" onClick={onToggle} fontSize="2vmin" _selected={{background: 'blue.200'}}_hover={{background: "blue.100" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 

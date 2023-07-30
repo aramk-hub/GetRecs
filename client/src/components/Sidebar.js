@@ -67,7 +67,7 @@ export default function Sidebar() {
             >
                 <IconButton
                     fontSize="2.5vmin"
-                    color="white"
+                    color="black"
                     background="none"
                     mt={5}
                     
@@ -98,7 +98,7 @@ export default function Sidebar() {
                 <Fragment>
                 <Avatar maxH="4vmin" maxW="4vmin" src={(user.images === undefined || user.images.length == 0) ? "avatar-1.jpg" : (user.images[0] ? user.images[0].url : "avatar-1.jpg")} />
                 <Flex flexDir="column" ml={2} display={navSize === "small" ? "none" : "flex"}>
-                    <Heading color="white" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>
+                    <Heading color="black" fontSize="2vmin" as="h3" size="sm">{user.display_name}</Heading>
                 </Flex>
                 
                 </Fragment>
