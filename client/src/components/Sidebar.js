@@ -1,23 +1,18 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import {
     Flex,
-    Text,
     IconButton,
     Divider,
     Avatar,
     Heading,
-    FormHelperText
 } from '@chakra-ui/react'
 import {
     FiMenu,
-    FiHome,
-    FiUser,
-    FiSettings,
     FiLogOut,
     FiSearch,
-    FiHelpCircle
 } from 'react-icons/fi'
 import { IoStatsChartOutline } from "react-icons/io5";
+import { useMatch } from 'react-router-dom';
 import NavItem from './NavItem'
 import axios from 'axios'
 
@@ -25,6 +20,10 @@ export default function Sidebar() {
     const [navSize, changeNavSize] = useState("small");
     const [user, setUser] = useState([]);
     const token = window.localStorage.getItem("token");
+    const location = window.location.pathname
+    console.log(window.location.pathname)
+    
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -38,7 +37,8 @@ export default function Sidebar() {
         })
         setUser(data);
     }
-    fetchUser();   
+    fetchUser(); 
+    
     }, []);
     
     return (
@@ -80,8 +80,8 @@ export default function Sidebar() {
                             changeNavSize("small")
                     }}
                 />
-                <NavItem navSize={navSize} icon={FiSearch} title="Search" active href="/search"/>
-                <NavItem navSize={navSize} icon={IoStatsChartOutline} title="Statistics" href="/statistics"/>
+                <NavItem navSize={navSize} icon={FiSearch} title="Search" active={location === '/search' ? true : false} href="/search"/>
+                <NavItem navSize={navSize} icon={IoStatsChartOutline} title="Statistics" active={location === '/statistics' ? true : false} href="/statistics"/>
                 <NavItem navSize={navSize} icon={FiLogOut} title="Logout" href="/logout"/>
             </Flex>
 

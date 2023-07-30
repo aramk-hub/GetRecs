@@ -6,11 +6,9 @@ import {
     Icon,
     Menu,
     MenuButton,
-    MenuList
 } from '@chakra-ui/react'
 import {useNavigate, NavLink as RouterLink} from 'react-router-dom'
 export default function NavItem({ icon, title, active, navSize, href }) {
-
 
     const navigate = useNavigate();
 

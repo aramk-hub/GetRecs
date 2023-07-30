@@ -1,13 +1,9 @@
 import React from 'react'
 import {
-    Container, 
-    SimpleGrid,
-    HStack,
     Image, 
     Link,
     Card, 
     CardBody, 
-    CardHeader, 
     Heading,
     Box, 
     Text,
@@ -18,14 +14,7 @@ import {
     TabPanels,
     TabPanel,
     Flex,
-    Fade, 
-    ScaleFade, 
-    Slide, 
-    SlideFade, 
-    Collapse,
-    Stat,
     useDisclosure,
-    Spacer
 } from '@chakra-ui/react'
 import { useEffect, useState, Fragment,  } from 'react';
 import { BrowserRouter as Router, Routes, Route }
@@ -33,13 +22,10 @@ import { BrowserRouter as Router, Routes, Route }
 import { Button, ButtonGroup, ChakraProvider, Stack, extendTheme } from '@chakra-ui/react'
 import Sidebar from '../components/Sidebar';
 import axios from 'axios'
-import background from "./record-image.jpeg";
 import logo from '../spotify-icons-logos/icons/RGB/PNG/Spotify_Icon_RGB_Black.png';
 import './statistics.css'
 
 function Statistics() {
-
-    const { isOpen, onToggle } = useDisclosure()
 
     const token = window.localStorage.getItem("token");
     const [shortTopArtists, setShortTopArtists] = useState({});
@@ -47,11 +33,7 @@ function Statistics() {
     const [longTopArtists, setLongTopArtists] = useState({});
     const [shortTopTracks, setShortTopTracks] = useState({});
     const [mediumTopTracks, setMediumTopTracks] = useState({});
-    const [longTopTracks, setLongTopTracks] = useState({});    
-    // const [shortTopGenres, setShortTopGenres] = useState({});
-    // const [mediumTopGenres, setMediumTopGenres] = useState({});
-    // const [longTopGenres, setLongTopGenres] = useState({});  
-    // const [term, setTerm] = useState("short");
+    const [longTopTracks, setLongTopTracks] = useState({});
 
     useEffect(() => {
         const getTopArtists = async (timerange, limit) => {
@@ -98,15 +80,12 @@ function Statistics() {
             }
         }
 
-        
-
         getTopArtists("short_term", 50);    
         getTopArtists("medium_term", 50);
         getTopArtists("long_term", 50);
         getTopTracks("short_term", 50);    
         getTopTracks("medium_term", 50);
         getTopTracks("long_term", 50);
-        
            
     }, []);
 
@@ -143,7 +122,6 @@ function Statistics() {
                 }
             }
         });
-
 
         const mpsorted = new Map([...mp.entries()].sort((a,b) => b[1] - a[1]))
 
@@ -206,7 +184,6 @@ function Statistics() {
                         {track.artists[0].name}                    
                 </Text>
                 
-                
             </Box>)})}
             
             </Stack>
@@ -247,9 +224,6 @@ function Statistics() {
                     count++;
                     
                 return (<Box maxHeight="90%">
-                    {/* <Link target="_blank" href={artist.external_urls.spotify}>
-                    <Image  float="right" height='7vmin' width='7vmin' src={artist.images[0].url}/>
-                    </Link> */}
                     <Heading float="right" fontSize="2vmin"> {value}%</Heading>
                     <Heading fontSize="2vmin"><b> {count}. </b> &nbsp; 
                     {key = key.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')}
@@ -261,57 +235,18 @@ function Statistics() {
             </CardBody>
             </Fragment>)} 
         }
-        // var topGenres = {}
-        // if (range == "short") {
-        //     topGenres = shortTopGenres;
-        // } else if (range == "medium") {
-        //     topGenres = mediumTopGenres;
-        // } else {
-        //     topGenres = longTopGenres;
-        // }
-        // // let sum = 0;
-        // // if (topGenres.size > 0) {
-            
-        // //     for (let key in topGenres) {
-        // //     sum += topGenres[key];
-        // //     }
-        // // }
-        // // const stats = [
-        // //     { label: 'Favorite Genre', value: Array.from(topGenres.keys())[0].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ') },
-        // //     { label: 'Frequency Picked', value: topGenres.get(Array.from(topGenres.keys())[0]) / sum * 100 },
-        // //     // { label: 'Avg. Click Rate', value: '12.87%' },
-        // //   ]
-          
-          
-        // // {<Box as="section" py={{ base: '4', md: '8' }}>
-        // //     <Container>
-        // //     <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: '5', md: '6' }}>
-        // //         {stats.map(({ label, value }) => (
-        // //         <Stat key={label} label={label} value={value} />
-        // //         ))}
-        // //     </SimpleGrid>
-        // //     </Container>
-        // // </Box>}
-          
-
-
-        
-        
-        
-    
-
 
   return (
       <div className='statistics'>
         <Sidebar/>
         <Flex
-        maxH="100%" 
-        maxWidth="100%" 
-        marginLeft="10%"
-        alignItems={"left"} 
-        justifyContent={"left"} 
-        overflowY="scroll"
-        gridColumn="2"
+            maxH="100%" 
+            maxWidth="100%" 
+            marginLeft="10%"
+            alignItems={"left"} 
+            justifyContent={"left"} 
+            overflowY="scroll"
+            gridColumn="2"
         >
             <Flex    
                 flex='1 1 40%'
@@ -322,36 +257,37 @@ function Statistics() {
                 flexDirection="column"
                 maxHeight="100%"
                 p={4}
-                //borderRadius={8}     
             > 
 
-            
-            <Card style={{ border: "none", boxShadow: "none" }} background="rgba(204, 204, 204, 0.0)" flexDirection="column" position="relative" maxW="100%" height="100%">
+            <Card 
+            style={{ border: "none", boxShadow: "none" }} 
+            background="rgba(204, 204, 204, 0.0)" 
+            flexDirection="column" 
+            position="relative" 
+            maxW="100%" 
+            height="100%">
                 
             <Tabs isFitted w="100%" h="100%" position="relative" colorScheme="purple" size='md'>
-                
+            
             <TabList>
                 <Tab fontSize="2vmin" color="black" _hover={{color: "teal.300" }}>Top Artists</Tab>
                 <Tab fontSize="2vmin" color="black" _hover={{color: "teal.300" }}>Top Tracks</Tab>
                 <Tab fontSize="2vmin" color="black"_hover={{color: "teal.300" }}>Top Genres</Tab>
             </TabList>
+            
             <div className="transition"></div>
             
             <TabPanels>
                 <TabPanel>
                 <Tabs style={{transition:"margin 0.5s ease"}} isFitted position="relative" variant='enclosed' size='md'>
                 <TabList>
-                    
-
                     <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 4 Weeks</Tab>
                     <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>Last 6 Months</Tab>
                     <Tab color="black" fontSize="2vmin" _hover={{color: "purple.400" }}>All-Time</Tab>
                 </TabList>
                 <TabPanels>
                 
-
                     {/* short term */}
-                    
                     <TabPanel >
                         <div className='example-style'>
                         {renderArtists("short")}
@@ -385,7 +321,6 @@ function Statistics() {
                 </TabList>
                 <TabPanels>
                 
-
                     {/* short term */}
                     <TabPanel>
                         <div className='example-style'>
@@ -419,7 +354,6 @@ function Statistics() {
                 </TabList>
                 <TabPanels>
                 
-
                     {/* short term */}
                     <TabPanel>
                         <div className='example-style'>
@@ -445,47 +379,11 @@ function Statistics() {
                 </Tabs>
                 </TabPanel>
 
-                
-                
-
-
-
-                {/* <TabPanel  w="100vh">
-                
-
-                <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                    {/* {getTopTracks()} */}
-                    {/* </Stack>
-                </CardBody>
-                
-                </TabPanel>
-
-                <TabPanel  w="100vh">
-                
-
-                <CardBody>
-                    <Stack divider={<StackDivider />} spacing='2'>
-                    
-                    </Stack>
-                </CardBody>
-                
-                </TabPanel> */}
-
-
-                
             </TabPanels>
             </Tabs>
             </Card>
-            
             </Flex>
-                
-            
         </Flex>
-            
-
-
-
       </div>
     
   );

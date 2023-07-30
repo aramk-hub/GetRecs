@@ -288,13 +288,13 @@ const Search = () => {
                     {recs.map((track, i) => {
                         return (
                             <Box maxHeight='100%'>
-                                {/* <Link target='_blank' to={track.album.external_urls.spotify}> */}
+                                <Link target="_blank" href={track.album.external_urls.spotify}>
                                 <Image float="right" height='7vmin' width='7vmin' align='right' src={track.album.images[0].url}/>
-                                {/* </Link> */}
+                                </Link>
                                 <Heading size='xs' textTransform='uppercase'>
                                 {track.name}
-                                 &nbsp; <Link fontSize="2vmin" color="purple.500" position="relative" display="inline-block" target='_blank' href={track.external_urls.spotify}>
-                                <Image src={logo} height="2.75vmin" width="2.75vmin"/></Link>
+                                 &nbsp; <Link top="1" fontSize="2vmin" color="purple.500" position="relative" display="inline-block" target='_blank' href={track.external_urls.spotify}>
+                                <Image src={logo} height="2.25vmin" width="2.25vmin"/></Link>
                                 </Heading>
                                 <Text pt='2' fontSize='2vmin'>
                                     by <Link color="purple.500" target='_blank' href={track.artists[0].external_urls.spotify}>
@@ -396,9 +396,9 @@ const Search = () => {
                                 <FormControl size="2vw" marginTop="10px" direction="row" alignItems="center">
                                 <VStack display="grid" position="relative">
                                 <Stack
-                                    
+                                    position="relative"
                                     alignItems="center"
-                                    ml="15%"
+                                    ml="10%"
                                     direction="row"
                                     flexWrap="wrap"
                                     spacing={4}
