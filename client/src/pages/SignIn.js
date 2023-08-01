@@ -18,7 +18,7 @@ const SignIn = () => {
 
    const formBackground = useColorModeValue('gray.100', 'gray.700');
    const CLIENT_ID = "659370cd953645b385b0e33e647be1a7";
-   const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private user-top-read"
+   const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private user-top-read user-read-recently-played"
    
   window.localStorage.setItem("time", Date.now());
   const [token, setToken] = useState("");
