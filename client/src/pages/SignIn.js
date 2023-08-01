@@ -22,7 +22,7 @@ const SignIn = () => {
    
   window.localStorage.setItem("time", Date.now());
   const [token, setToken] = useState("");
-  const REDIRECT_URI = "https://gentle-torte-8f631b.netlify.app/";
+  const REDIRECT_URI = "https://recsandstats.com";
   const navigate = useNavigate();
   let codeVerifier = generateRandomString(128);
 
