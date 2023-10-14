@@ -87,7 +87,6 @@ const SignIn = () => {
   const authorize = async () => {
     const urlParams = new URLSearchParams(window.location.search);
       let code = urlParams.get('code'); 
-      console.log(code);
 
       let codeVf = window.localStorage.getItem('code_verifier');
 
