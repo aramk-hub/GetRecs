@@ -1,4 +1,4 @@
-# GetRecs
+# [GetRecs](https://www.recsandstats.com/)
 Personalized music recommendations added straight to your account.
 
 ## How It Works
